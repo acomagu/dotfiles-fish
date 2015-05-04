@@ -1,3 +1,6 @@
+set encoding=utf-8
+scriptencoding utf-8
+
 " Note: Skip initialization for vim-tiny or vim-small.
 if !1 | finish | endif
 
@@ -44,11 +47,36 @@ filetype plugin indent on
 " this will conveniently prompt you to install them.
 NeoBundleCheck
 
+syntax on
+set fileencoding=utf-8
+set scrolloff=5
+set noswapfile
+set nowritebackup
+set nobackup
 set number
 set showmatch matchtime=1
 set autoindent
 set expandtab
 set shiftwidth=2
 set smartindent
+set backspace=indent
+set vb t_vb=
+set novisualbell
+set clipboard+=unnamed
+set clipboard=unnamed
+set list
+set ruler
+set matchpairs& matchpairs+=<:>
+set showmatch
+set matchtime=3
+set wrap
+set textwidth=0
+set listchars=tab:»-,trail:-,extends:»,precedes:«,nbsp:%
+set shiftround
+set infercase
+set ignorecase
+set smartcase
+set incsearch
+:set hlsearch
 
 command! -nargs=+ -bang -complete=file Rename let pbnr=fnamemodify(bufname('%'), ':p')|exec 'f '.escape(<q-args>, ' ')|w<bang>|call delete(pbnr)duo-
