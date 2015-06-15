@@ -20,7 +20,11 @@ call neobundle#begin(expand('~/.vim/bundle/'))
 " Required:
 NeoBundleFetch 'Shougo/neobundle.vim'
 
-NeoBundle 'Shougo/neocomplcache'
+if has('lua')
+  NeoBundle 'shougo/neocomplcache.vim'
+else
+  NeoBundle 'shougo/neocomplcache'
+endif
 
 "Note: This option must set it in .vimrc(_vimrc).  NOT IN .gvimrc(_gvimrc)!
 " Disable AutoComplPop.
@@ -111,6 +115,7 @@ let g:neocomplcache_force_omni_patterns.cpp = '[^.[:digit:] *\t]\%(\.\|->\)\|\h\
 
 " ---End of configuration of Neocomplcache---
 
+syntax on
 NeoBundle 'kien/ctrlp.vim'
 NeoBundle 'flazz/vim-colorschemes'
 NeoBundle 'Shougo/unite.vim'
@@ -127,13 +132,15 @@ NeoBundle 'romanvbabenko/rails.vim'
 NeoBundle 'mattn/emmet-vim'
 NeoBundle 'tomtom/tcomment_vim'
 NeoBundle 'terryma/vim-multiple-cursors'
+set backspace=indent,eol,start
 NeoBundle "osyo-manga/vim-over"
 NeoBundle 'tomasr/molokai'
 set t_Co=256
 
 NeoBundle 'jonathanfilip/vim-lucius'
 NeoBundle 'altercation/vim-colors-solarized'
-
+NeoBundle 'AndrewRadev/splitjoin.vim'
+NeoBundle 'kana/vim-submode'
 call neobundle#end()
 
 " Required:
@@ -143,7 +150,6 @@ filetype plugin indent on
 " this will conveniently prompt you to install them.
 NeoBundleCheck
 
-syntax on
 colorscheme molokai
 set fileencoding=utf-8
 set scrolloff=5
@@ -177,3 +183,12 @@ set incsearch
 set hlsearch
 
 command! -nargs=+ -bang -complete=file Rename let pbnr=fnamemodify(bufname('%'), ':p')|exec 'f '.escape(<q-args>, ' ')|w<bang>|call delete(pbnr)duo-
+call submode#enter_with('winsize', 'n', '', '<C-w>>', '<C-w>>')
+call submode#enter_with('winsize', 'n', '', '<C-w><', '<C-w><')
+call submode#enter_with('winsize', 'n', '', '<C-w>+', '<C-w>-')
+call submode#enter_with('winsize', 'n', '', '<C-w>-', '<C-w>+')
+call submode#map('winsize', 'n', '', '>', '<C-w>>')
+call submode#map('winsize', 'n', '', '<', '<C-w><')
+call submode#map('winsize', 'n', '', '+', '<C-w>-')
+call submode#map('winsize', 'n', '', '-', '<C-w>+')
+
