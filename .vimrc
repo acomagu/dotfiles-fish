@@ -1,4 +1,5 @@
 set encoding=utf-8
+
 scriptencoding utf-8
 
 " Note: Skip initialization for vim-tiny or vim-small.
@@ -141,6 +142,12 @@ NeoBundle 'jonathanfilip/vim-lucius'
 NeoBundle 'altercation/vim-colors-solarized'
 NeoBundle 'AndrewRadev/splitjoin.vim'
 NeoBundle 'kana/vim-submode'
+
+NeoBundle 'kakkyz81/evervim'
+let g:evervim_devtoken='S=s76:U=81e7af:E=155a60631ed:C=14e4e5502d8:P=1cd:A=en-devtoken:V=2:H=d2b080266d7101cf2a55031389157dff'
+
+NeoBundle 'terryma/vim-expand-region'
+" NeoBundle 'rhysd/clever-f.vim'
 call neobundle#end()
 
 " Required:
@@ -149,6 +156,51 @@ filetype plugin indent on
 " If there are uninstalled bundles found on startup,
 " this will conveniently prompt you to install them.
 NeoBundleCheck
+
+
+" vim-submode
+command! -nargs=+ -bang -complete=file Rename let pbnr=fnamemodify(bufname('%'), ':p')|exec 'f '.escape(<q-args>, ' ')|w<bang>|call delete(pbnr)duo-
+call submode#enter_with('winsize', 'n', '', '<C-w>>', '<C-w>>')
+call submode#enter_with('winsize', 'n', '', '<C-w><', '<C-w><')
+call submode#enter_with('winsize', 'n', '', '<C-w>+', '<C-w>-')
+call submode#enter_with('winsize', 'n', '', '<C-w>-', '<C-w>+')
+call submode#map('winsize', 'n', '', '>', '<C-w>>')
+call submode#map('winsize', 'n', '', '<', '<C-w><')
+call submode#map('winsize', 'n', '', '+', '<C-w>-')
+call submode#map('winsize', 'n', '', '-', '<C-w>+')
+
+" call submode#enter_with('findlinechar', 'nv', 'e', 'f', '"V\<C-j>/\\%V".nr2char(getchar())."\<CR>"')
+" map <expr> f "V\<C-j>/\\%V".nr2char(getchar())."\<CR>"
+map <expr> f 'V<C-j>/\%V'.nr2char(getchar()).'<CR><Plug>(flc)'
+map <Plug>(flc) a
+" call submode#enter_with('findlinecha', 'n', '', '')
+" call submode#map('findlinecha', 'n', '', 'n', ':echo a')
+" noremap <silent> j :noh<CR>j
+
+" vim-expand-region
+vmap v <Plug>(expand_region_expand)
+vmap V <Plug>(expand_region_shrink)
+
+" evervim
+nnoremap <Leader>evl :EvervimListTags<CR>
+nnoremap <Leader>evs :EvervimSearchByQuery<CR>
+nnoremap <Leader>ev/ :EvervimSearchByQuery<CR>
+
+" clever-f
+" nmap n <Plug>(clever-f-f)
+" let g:clever_f_across_no_line = 1
+
+let mapleader = "\<Space>"
+nnoremap <Leader>w :w<CR>
+nnoremap <Leader>t :tabnew<CR>
+nnoremap <Leader>q ZZ
+nnoremap <Leader>h ^
+nnoremap <Leader>l $
+nnoremap <Leader>k H
+nnoremap <Leader>j L
+noremap <C-j> <Esc>
+noremap! <C-j> <Esc>
+" nnoremap ; :
 
 colorscheme molokai
 set fileencoding=utf-8
@@ -182,13 +234,16 @@ set smartcase
 set incsearch
 set hlsearch
 
-command! -nargs=+ -bang -complete=file Rename let pbnr=fnamemodify(bufname('%'), ':p')|exec 'f '.escape(<q-args>, ' ')|w<bang>|call delete(pbnr)duo-
-call submode#enter_with('winsize', 'n', '', '<C-w>>', '<C-w>>')
-call submode#enter_with('winsize', 'n', '', '<C-w><', '<C-w><')
-call submode#enter_with('winsize', 'n', '', '<C-w>+', '<C-w>-')
-call submode#enter_with('winsize', 'n', '', '<C-w>-', '<C-w>+')
-call submode#map('winsize', 'n', '', '>', '<C-w>>')
-call submode#map('winsize', 'n', '', '<', '<C-w><')
-call submode#map('winsize', 'n', '', '+', '<C-w>-')
-call submode#map('winsize', 'n', '', '-', '<C-w>+')
 
+" function! s:getchar()
+"   let c = getchar()
+"   if c =~ '^\d\+$'
+"     let c = nr2char(c)
+"   endif
+"   return c
+" endfunction
+
+" function! Aaa()
+"   let char = s:getchar()
+"   /char
+" endfunction
