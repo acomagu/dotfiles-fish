@@ -1,4 +1,5 @@
-set encoding=utf-8
+
+let mapleader = "\<Space>"
 
 scriptencoding utf-8
 
@@ -37,7 +38,7 @@ let g:neocomplcache_enable_smart_case = 1
 " Set minimum syntax keyword length.
 let g:neocomplcache_min_syntax_length = 3
 let g:neocomplcache_lock_buffer_name_pattern = '\*ku\*'
-let g:neocomplcache_enable_auto_select = 1
+let g:neocomplcache_enable_auto_select = 0
 
 " Enable heavy features.
 " Use camel case completion.
@@ -160,6 +161,8 @@ NeoBundleCheck
 
 
 " vim-submode
+let g:submode_keep_leaving_key = 1
+let g:submode_timeout = 0
 command! -nargs=+ -bang -complete=file Rename let pbnr=fnamemodify(bufname('%'), ':p')|exec 'f '.escape(<q-args>, ' ')|w<bang>|call delete(pbnr)duo-
 call submode#enter_with('winsize', 'n', '', '<C-w>>', '<C-w>>')
 call submode#enter_with('winsize', 'n', '', '<C-w><', '<C-w><')
@@ -172,11 +175,27 @@ call submode#map('winsize', 'n', '', '-', '<C-w>+')
 
 " call submode#enter_with('findlinechar', 'nv', 'e', 'f', '"V\<C-j>/\\%V".nr2char(getchar())."\<CR>"')
 " map <expr> f "V\<C-j>/\\%V".nr2char(getchar())."\<CR>"
-map <expr> f 'V<C-j>/\%V'.nr2char(getchar()).'<CR><Plug>(flc)'
-map <Plug>(flc) a
+map <expr> f 'lv$<Esc>/\%V['.nr2char(getchar()).']<CR><Plug>(flc)'
+map <expr> F 'hv0<Esc>?\%V['.nr2char(getchar()).']<CR><Plug>(flc)'
+call submode#enter_with('flc', 'n', '', '<Plug>(flc)')
+call submode#map('flc', 'n', 'x', 'h', 'h:noh<CR>')
+call submode#map('flc', 'n', 'x', 'j', 'j:noh<CR>')
+call submode#map('flc', 'n', 'x', 'k', 'k:noh<CR>')
+call submode#map('flc', 'n', 'x', 'l', 'l:noh<CR>')
+call submode#map('flc', 'n', 'x', '<Esc>', ':noh<CR>')
+call submode#map('flc', 'n', 'x', '<C-j>', ':noh<CR>')
+call submode#map('flc', 'n', '', 'a', '<Esc><Esc>a')
+call submode#map('flc', 'n', '', 'i', '<Esc><Esc>i')
+call submode#map('flc', 'n', '', 'n', 'n')
+call submode#map('flc', 'n', '', 'N', 'N')
 " call submode#enter_with('findlinecha', 'n', '', '')
 " call submode#map('findlinecha', 'n', '', 'n', ':echo a')
 " noremap <silent> j :noh<CR>j
+
+" call submode#enter_with('pageup', 'n', '', '<Leader>k', 'H')
+" call submode#map('pageup', 'n', '', '<Leader>k', '<C-u>')
+" call submode#enter_with('pagedown', 'n', '', '<Leader>j', 'L')
+" call submode#map('pagedown', 'n', '', '<Leader>j', '<C-d>')
 
 " vim-expand-region
 vmap v <Plug>(expand_region_expand)
@@ -191,14 +210,15 @@ nnoremap <Leader>ev/ :EvervimSearchByQuery<CR>
 " nmap n <Plug>(clever-f-f)
 " let g:clever_f_across_no_line = 1
 
-let mapleader = "\<Space>"
 nnoremap <Leader>w :w<CR>
 nnoremap <Leader>t :tabnew<CR>
 nnoremap <Leader>q ZZ
 nnoremap <Leader>h ^
 nnoremap <Leader>l $
-nnoremap <Leader>k H
-nnoremap <Leader>j L
+" nnoremap <Leader>k H
+" nnoremap <Leader>j L
+nnoremap <Leader>k 15k
+nnoremap <Leader>j 15j
 noremap <C-j> <Esc>
 noremap! <C-j> <Esc>
 " nnoremap ; :
