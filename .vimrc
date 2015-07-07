@@ -145,8 +145,10 @@ NeoBundle 'altercation/vim-colors-solarized'
 NeoBundle 'AndrewRadev/splitjoin.vim'
 NeoBundle 'kana/vim-submode'
 
-NeoBundle 'kakkyz81/evervim'
-let g:evervim_devtoken='S=s76:U=81e7af:E=155a60631ed:C=14e4e5502d8:P=1cd:A=en-devtoken:V=2:H=d2b080266d7101cf2a55031389157dff'
+if has('python')
+  NeoBundle 'kakkyz81/evervim'
+  let g:evervim_devtoken='S=s76:U=81e7af:E=155a60631ed:C=14e4e5502d8:P=1cd:A=en-devtoken:V=2:H=d2b080266d7101cf2a55031389157dff'
+endif
 
 NeoBundle 'terryma/vim-expand-region'
 " NeoBundle 'rhysd/clever-f.vim'
