@@ -230,7 +230,7 @@ noremap! <C-j> <Esc>
 
 " vim-auto-save
 " let g:auto_save = 1
-autocmd CursorHold * up
+" autocmd CursorHold * up
 ":up<CR>
 
 colorscheme molokai
