@@ -1,6 +1,5 @@
 
 let mapleader = "\<Space>"
-
 scriptencoding utf-8
 
 " Note: Skip initialization for vim-tiny or vim-small.
@@ -108,6 +107,7 @@ autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
 autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
 autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
 
+
 " Enable heavy omni completion.
 if !exists('g:neocomplcache_force_omni_patterns')
   let g:neocomplcache_force_omni_patterns = {}
@@ -144,6 +144,8 @@ NeoBundle 'jonathanfilip/vim-lucius'
 NeoBundle 'altercation/vim-colors-solarized'
 NeoBundle 'AndrewRadev/splitjoin.vim'
 NeoBundle 'kana/vim-submode'
+NeoBundle 'plasticboy/vim-markdown'
+NeoBundle 'koron/imcsc-vim'
 
 if has('python')
   NeoBundle 'kakkyz81/evervim'
@@ -151,6 +153,7 @@ if has('python')
 endif
 
 NeoBundle 'terryma/vim-expand-region'
+NeoBundle 'vim-scripts/vim-auto-save'
 " NeoBundle 'rhysd/clever-f.vim'
 call neobundle#end()
 
@@ -215,8 +218,8 @@ nnoremap <Leader>ev/ :EvervimSearchByQuery<CR>
 nnoremap <Leader>w :w<CR>
 nnoremap <Leader>t :tabnew<CR>
 nnoremap <Leader>q ZZ
-nnoremap <Leader>h ^
-nnoremap <Leader>l $
+nnoremap <Leader>h 60h
+nnoremap <Leader>l 60l
 " nnoremap <Leader>k H
 " nnoremap <Leader>j L
 nnoremap <Leader>k 15k
@@ -224,6 +227,11 @@ nnoremap <Leader>j 15j
 noremap <C-j> <Esc>
 noremap! <C-j> <Esc>
 " nnoremap ; :
+
+" vim-auto-save
+" let g:auto_save = 1
+autocmd CursorHold * up
+":up<CR>
 
 colorscheme molokai
 set fileencoding=utf-8
@@ -257,6 +265,20 @@ set smartcase
 set incsearch
 set hlsearch
 
+augroup vimrc
+  autocmd!
+  autocmd FileType markdown inoremap <buffer><expr> <CR> (getline('.') =~ '^\s*-\s') ? '<CR>- ' : '<CR>'
+  autocmd FileType markdown nnoremap <buffer><expr> o (getline('.') =~ '^\s*-\s') ? 'o- ' : 'o'
+  autocmd FileType markdown inoremap <buffer><expr> <CR> (getline('.') =~ '^\s*\*\s') ? '<CR>* ' : '<CR>'
+  autocmd FileType markdown nnoremap <buffer><expr> o (getline('.') =~ '^\s*\*\s') ? 'o* ' : 'o'
+augroup END
+" function! ListMark()
+"   echo 'ListMark'
+"   call setline('.', substitute(getline('.'), '^\(\s*\)', '\1- ', ''))
+" endfunction
+
+
+" set com=s1:/*,mb:*,ex:*/,://,b:#,:%,:XCOMM,n:>,b:-
 
 " function! s:getchar()
 "   let c = getchar()
