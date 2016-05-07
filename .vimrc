@@ -1,135 +1,93 @@
 scriptencoding utf-8
 
+" dein.vim
+if &compatible
+  set nocompatible
+endif
+set runtimepath^=/home/yuki/.config/nvim/dein.vim/repos/github.com/Shougo/dein.vim
+call dein#begin(expand('/home/yuki/.config/nvim/dein.vim'))
+call dein#add('Shougo/dein.vim')
+
+call dein#add('kien/ctrlp.vim')
+call dein#add('tomtom/tcomment_vim')
+call dein#add('terryma/vim-multiple-cursors')
+call dein#add('tomasr/molokai')
+call dein#add('AndrewRadev/splitjoin.vim')
+call dein#add('kana/vim-submode')
+call dein#add('plasticboy/vim-markdown')
+call dein#add('koron/imcsc-vim')
+call dein#add('Shougo/neomru.vim')
+call dein#add('Shougo/unite.vim')
+call dein#add('Shougo/unite-outline')
+call dein#add('Shougo/deoplete.nvim')
+call dein#add('fatih/vim-go')
+call dein#add('zchee/deoplete-go', {'build': 'make'})
+  call dein#add('nsf/gocode')
+call dein#add('benekastah/neomake')
+
+call dein#end()
+filetype plugin indent on
+if dein#check_install()
+  call dein#install()
+endif
+
+let g:python3_host_prog  = '/usr/bin/python3'
+
+" neomake
+autocmd! BufWritePost * Neomake
+
+" vim-go
+let g:go_fmt_command = "goimports"
+let g:go_highlight_functions = 1
+let g:go_highlight_methods = 1
+let g:go_highlight_structs = 1
+let g:go_highlight_operators = 1
+let g:go_term_enabled = 1
+let g:go_highlight_build_constraints = 1
+
+" deoplete-go
+let g:deoplete#sources#go#align_class = 1
+let g:deoplete#sources#go#sort_class = ['package', 'func', 'type', 'var', 'const']
+let g:deoplete#sources#go#package_dot = 1
+
 " set key of <Leader>
 let mapleader = "\<Space>"
 
-" NeoBundle
-if !1 | finish | endif
-if has('vim_starting')
-  if &compatible
-    set nocompatible               " Be iMproved
-  endif
-  set runtimepath+=~/.vim/bundle/neobundle.vim/
-endif
-call neobundle#begin(expand('~/.vim/bundle/'))
-NeoBundleFetch 'Shougo/neobundle.vim'
+" deoplete
+if dein#is_sourced('deoplete.nvim')
+  let g:deoplete#enable_at_startup = 1
 
-" package plugins
-NeoBundle 'kien/ctrlp.vim'
-NeoBundle 'flazz/vim-colorschemes'
-NeoBundle 'Shougo/unite.vim'
-NeoBundle 'Shougo/vimproc.vim', {
-\   'build': {
-\     'windows': 'tools\\update-dll-mingw',
-\     'cygwin': 'make -f make_cygwin.mak',
-\     'mac': 'make -f make_mac.mak',
-\     'linux': 'make',
-\     'unix': 'gmake',
-\   }
-\ }
-NeoBundle 'romanvbabenko/rails.vim'
-NeoBundle 'mattn/emmet-vim'
-NeoBundle 'tomtom/tcomment_vim'
-NeoBundle 'terryma/vim-multiple-cursors'
-NeoBundle "osyo-manga/vim-over"
-NeoBundle 'tomasr/molokai'
-NeoBundle 'jonathanfilip/vim-lucius'
-NeoBundle 'altercation/vim-colors-solarized'
-NeoBundle 'AndrewRadev/splitjoin.vim'
-NeoBundle 'kana/vim-submode'
-NeoBundle 'plasticboy/vim-markdown'
-NeoBundle 'koron/imcsc-vim'
-NeoBundle 'terryma/vim-expand-region'
-NeoBundle 'vim-scripts/vim-auto-save'
-NeoBundle 'neilagabriel/vim-geeknote'
-NeoBundle 'basyura/TweetVim', {
-\   'depends': [
-\     'basyura/twibill.vim',
-\     'tyru/open-browser.vim',
-\     'h1mesuke/unite-outline',
-\     'basyura/bitly.vim',
-\     'Shougo/unite.vim',
-\     'Shougo/vimproc',
-\     'mattn/favstar-vim'
-\   ]
-\ }
-NeoBundle has('lua') ? 'Shougo/neocomplete' : 'Shougo/neocomplcache'
-call neobundle#end()
-filetype plugin indent on
-NeoBundleCheck
-
-" neocomplete
-if neobundle#is_installed('neocomplete')
   let g:acp_enableAtStartup = 0
-  let g:neocomplete#enable_at_startup = 1
-  let g:neocomplete#enable_smart_case = 1
-  let g:neocomplete#sources#syntax#min_keyword_length = 3
-  let g:neocomplete#lock_buffer_name_pattern = '\*ku\*'
-  let g:neocomplete#sources#dictionary#dictionaries = {
+  let g:deoplete#enable_at_startup = 1
+  let g:deoplete#enable_smart_case = 1
+  let g:deoplete#sources#syntax#min_keyword_length = 3
+  let g:deoplete#lock_buffer_name_pattern = '\*ku\*'
+  let g:deoplete#sources#dictionary#dictionaries = {
     \ 'default' : '',
     \ 'vimshell' : $HOME.'/.vimshell_hist',
     \ 'scheme' : $HOME.'/.gosh_completions'
   \ }
-  let g:neocomplete#keyword_patterns['default'] = '\h\w*'
-  inoremap <expr><C-g>     neocomplete#undo_completion()
-  inoremap <expr><C-l>     neocomplete#complete_common_string()
+  if !exists('g:deoplete_keyword_patterns')
+      let g:deoplete#keyword_patterns = {}
+  endif
+  let g:deoplete#keyword_patterns['default'] = '\h\w*'
+  inoremap <expr><C-g>     deoplete#undo_completion()
+  inoremap <expr><C-l>     deoplete#complete_common_string()
   inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
   function! s:my_cr_function()
     return (pumvisible() ? "\<C-y>" : "" ) . "\<CR>"
   endfunction
-  inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
-  inoremap <expr><C-h> neocomplete#smart_close_popup()."\<C-h>"
-  inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
-  autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
-  autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
-  autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
-  autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
-  autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
-  if !exists('g:neocomplete#sources#omni#input_patterns')
-    let g:neocomplete#sources#omni#input_patterns = {}
-  endif
-  let g:neocomplete#sources#omni#input_patterns.perl = '\h\w*->\h\w*\|\h\w*::'
-endif
+  inoremap <expr><TAB> pumvisible() ? "\<C-n>" : "\<TAB>"
 
-" neocomplcache
-if neobundle#is_installed('neocomplcache')
-  let g:acp_enableAtStartup = 0
-  let g:neocomplcache_enable_at_startup = 1
-  let g:neocomplcache_enable_smart_case = 1
-  let g:neocomplcache_min_syntax_length = 3
-  let g:neocomplcache_lock_buffer_name_pattern = '\*ku\*'
-  let g:neocomplcache_dictionary_filetype_lists = {
-    \ 'default' : '',
-    \ 'vimshell' : $HOME.'/.vimshell_hist',
-    \ 'scheme' : $HOME.'/.gosh_completions'
-  \ }
-  if !exists('g:neocomplcache_keyword_patterns')
-      let g:neocomplcache_keyword_patterns = {}
-  endif
-  let g:neocomplcache_keyword_patterns['default'] = '\h\w*'
-  inoremap <expr><C-g>     neocomplcache#undo_completion()
-  inoremap <expr><C-l>     neocomplcache#complete_common_string()
-  inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
-  function! s:my_cr_function()
-    return neocomplcache#smart_close_popup() . "\<CR>"
-  endfunction
-  inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
-  inoremap <expr><C-h> neocomplcache#smart_close_popup()."\<C-h>"
-  inoremap <expr><BS> neocomplcache#smart_close_popup()."\<C-h>"
-  inoremap <expr><C-y>  neocomplcache#close_popup()
-  inoremap <expr><C-e>  neocomplcache#cancel_popup()
   autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
   autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
   autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
   autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
   autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
-  if !exists('g:neocomplcache_force_omni_patterns')
-    let g:neocomplcache_force_omni_patterns = {}
+  if !exists('g:deoplete#sources#omni#input_patterns')
+    let g:deoplete#sources#omni#input_patterns = {}
   endif
-  let g:neocomplcache_force_omni_patterns.php = '[^. \t]->\h\w*\|\h\w*::'
-  let g:neocomplcache_force_omni_patterns.c = '[^.[:digit:] *\t]\%(\.\|->\)'
-  let g:neocomplcache_force_omni_patterns.cpp = '[^.[:digit:] *\t]\%(\.\|->\)\|\h\w*::'
-  let g:neocomplcache_force_omni_patterns.perl = '\h\w*->\h\w*\|\h\w*::'
+  let g:deoplete#sources#omni#input_patterns.perl = '\h\w*->\h\w*\|\h\w*::'
 endif
 
 " vim-submode
@@ -152,15 +110,6 @@ call submode#enter_with('flc', 'n', '', '<Plug>(flc)', ':autocmd flc InsertEnter
 call submode#map('flc', 'n', '', 'n', 'n')
 call submode#map('flc', 'n', '', 'N', 'N')
 
-" vim-expand-region
-vmap v <Plug>(expand_region_expand)
-vmap V <Plug>(expand_region_shrink)
-
-" evervim
-nnoremap <Leader>evl :EvervimListTags<CR>
-nnoremap <Leader>evs :EvervimSearchByQuery<CR>
-nnoremap <Leader>ev/ :EvervimSearchByQuery<CR>
-
 " other custom keymaps
 nnoremap <Leader>w :w<CR>
 nnoremap <Leader>t :tabnew<CR>
@@ -172,7 +121,7 @@ nnoremap <Leader>j 15j
 noremap <C-j> <Esc>
 noremap! <C-j> <Esc>
 
-" vim
+" nvim
 colorscheme molokai
 syntax on
 set t_Co=256
@@ -200,7 +149,8 @@ set showmatch
 set matchtime=3
 set wrap
 set textwidth=0
-set listchars=tab:»-,trail:-,extends:»,precedes:«,nbsp:%
+set listchars=tab:»\ ,trail:-,extends:»,precedes:«,nbsp:%
+set tabstop=2
 set shiftround
 set infercase
 set ignorecase
@@ -210,13 +160,12 @@ set hlsearch
 set ambiwidth=double
 
 " configs of auto insertion list prefix on markdown files
-augroup vimrc
+augroup config
   autocmd!
   autocmd FileType markdown inoremap <buffer><expr> <CR> (getline('.') =~ '^\s*-\s') ? '<CR>- ' : '<CR>'
   autocmd FileType markdown nnoremap <buffer><expr> o (getline('.') =~ '^\s*-\s') ? 'o- ' : 'o'
   autocmd FileType markdown inoremap <buffer><expr> <CR> (getline('.') =~ '^\s*\*\s') ? '<CR>* ' : '<CR>'
   autocmd FileType markdown nnoremap <buffer><expr> o (getline('.') =~ '^\s*\*\s') ? 'o* ' : 'o'
-
   autocmd BufNewFile,BufRead *.es6 set filetype=javascript
 augroup END
 
@@ -230,7 +179,3 @@ augroup BinaryXXD
   autocmd BufWritePost * if &binary | silent %!xxd -g 1
   autocmd BufWritePost * set nomod | endif
 augroup END
-
-" new command to change colors
-command! Light :set background=light|:colorscheme lucius
-command! Dark :set background=dark|:colorscheme molokai
