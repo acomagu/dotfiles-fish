@@ -110,7 +110,13 @@ call submode#enter_with('flc', 'n', '', '<Plug>(flc)', ':autocmd flc InsertEnter
 call submode#map('flc', 'n', '', 'n', 'n')
 call submode#map('flc', 'n', '', 'N', 'N')
 
+" Unite
+nnoremap <Leader>u :Unite<CR>
+nnoremap <Leader>p :Unite file_rec<CR>
+let g:unite_enable_start_insert=1
+
 " other custom keymaps
+
 nnoremap <Leader>w :w<CR>
 nnoremap <Leader>t :tabnew<CR>
 nnoremap <Leader>q ZZ
@@ -118,8 +124,9 @@ nnoremap <Leader>h 60h
 nnoremap <Leader>l 60l
 nnoremap <Leader>k 15k
 nnoremap <Leader>j 15j
-noremap <C-j> <Esc>
-noremap! <C-j> <Esc>
+noremap <C-j> <Esc>:noh<CR>
+noremap! <C-j> <Esc>:noh<CR>
+tnoremap <C-j> <C-\><C-n>
 
 " nvim
 colorscheme molokai
