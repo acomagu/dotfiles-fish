@@ -5,6 +5,7 @@ set -x INFOPATH $INFOPATH "$HOME/.linuxbrew/share/info"
 set -x GOPATH "$HOME/dev/go"
 set -x PATH $PATH "$GOPATH/bin"
 set -x PATH $PATH "$HOME/.arduino"
+set -x PATH $PATH "$HOME/.config/composer/vendor/bin"
 
 set -x PATH $HOME/.rbenv/bin $PATH
 set -x PATH $HOME/.rbenv/shims $PATH
