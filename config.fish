@@ -11,6 +11,8 @@ set -x PATH $HOME/.rbenv/bin $PATH
 set -x PATH $HOME/.rbenv/shims $PATH
 rbenv rehash >/dev/null ^&1
 
+set -x NODE_PATH /home/yuki/.linuxbrew/lib/node_modules
+
 source $HOME/.enhancd/fish/enhancd.fish
 function cd
     cd::cd $argv
