@@ -1,3 +1,4 @@
+set -x XDG_CONFIG_HOME "$HOME/.config"
 set -x PATH $PATH "$HOME/.linuxbrew/bin"
 set -x MANPATH $MANPATH "$HOME/.linuxbrew/share/man"
 set -x INFOPATH $INFOPATH "$HOME/.linuxbrew/share/info"
