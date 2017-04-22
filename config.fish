@@ -18,6 +18,10 @@ function cd
     cd::cd $argv
 end
 
+function nvcd
+    nvr -c "cd "(realpath $argv)
+end
+
 function fish_prompt
     function _is_git_repo
       type -q git; or return 1
