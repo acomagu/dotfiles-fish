@@ -43,8 +43,8 @@ eval (python3 -m virtualfish compat_aliases)
 
 function fish_prompt
     function _is_git_repo
-      type -q git; or return 1
-      git status -s >/dev/null ^/dev/null
+        type -q git; or return 1
+        git status -s >/dev/null ^/dev/null
     end
 
     function _git_branch_name
