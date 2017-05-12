@@ -1,8 +1,5 @@
 set -x XDG_DATA_HOME $HOME/.local/share
 set -x XDG_CONFIG_HOME $HOME/.config
-set -x PATH $PATH "$HOME/.arduino"
-set -x PATH $PATH "$HOME/.config/composer/vendor/bin"
-
 set -x MANPATH $MANPATH $XDG_DATA_HOME/man
 set -x INFOPATH $INFOPATH $XDG_DATA_HOME/info
 set -x GOPATH $HOME/.local
@@ -13,9 +10,7 @@ set -x PATH $PATH $RBENV_ROOT/shims
 
 rbenv rehash >/dev/null ^&1
 
-source $HOME/.enhancd/fish/enhancd.fish
 function cd
-    cd::cd $argv
 end
 
 function nvcd
