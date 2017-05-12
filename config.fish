@@ -6,6 +6,7 @@ set -x GOPATH $HOME/.local
 set -x GHQ_ROOT $GOPATH/src
 set -x RBENV_ROOT $HOME/.local/var/rbenv
 set -x GEM_HOME $XDG_DATA_HOME/gem
+set -x Z_DATA $XDG_DATA_HOME/z/history
 set -x NODE_PATH $HOME/.local/lib/node_modules
 set -x PATH $PATH $HOME/.local/bin
 set -x PATH $PATH $RBENV_ROOT/shims
@@ -13,6 +14,20 @@ set -x PATH $PATH $RBENV_ROOT/shims
 rbenv rehash >/dev/null ^&1
 
 function cd
+    if count $argv > /dev/null
+        builtin cd $argv
+    else
+        begin;
+            echo $HOME
+            z -l | awk '{ print $2 }'
+        end | fzf | read -l p
+
+        if [ $status -ne 0 ]
+            return $status
+        end
+
+        builtin cd $p
+    end
 end
 
 function gcd
