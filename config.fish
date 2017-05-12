@@ -39,7 +39,7 @@ function nvcd
     nvr -c "cd "(realpath $argv)
 end
 
-eval (/usr/bin/python3 -m virtualfish compat_aliases)
+eval (python3 -m virtualfish compat_aliases)
 
 function fish_prompt
     function _is_git_repo
