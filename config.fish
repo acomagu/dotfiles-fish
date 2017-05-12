@@ -14,6 +14,11 @@ rbenv rehash >/dev/null ^&1
 function cd
 end
 
+function gcd
+  ghq list | fzf | read -l p
+  and cd (ghq root)/$p
+end
+
 function nvcd
     nvr -c "cd "(realpath $argv)
 end
