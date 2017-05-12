@@ -1,8 +1,5 @@
 set -x XDG_DATA_HOME $HOME/.local/share
 set -x XDG_CONFIG_HOME $HOME/.config
-set -x PATH $PATH "$HOME/.linuxbrew/bin"
-set -x MANPATH $MANPATH "$HOME/.linuxbrew/share/man"
-set -x INFOPATH $INFOPATH "$HOME/.linuxbrew/share/info"
 set -x GOPATH "$HOME/dev/go"
 set -x PATH $PATH "$GOPATH/bin"
 set -x PATH $PATH "$HOME/.arduino"
@@ -11,8 +8,11 @@ set -x PATH $PATH "$HOME/.config/composer/vendor/bin"
 set -x PATH $HOME/.rbenv/bin $PATH
 set -x PATH $HOME/.rbenv/shims $PATH
 rbenv rehash >/dev/null ^&1
+set -x MANPATH $MANPATH $XDG_DATA_HOME/man
+set -x INFOPATH $INFOPATH $XDG_DATA_HOME/info
+set -x NODE_PATH $HOME/.local/lib/node_modules
+set -x PATH $PATH $HOME/.local/bin
 
-set -x NODE_PATH /home/yuki/.linuxbrew/lib/node_modules
 
 source $HOME/.enhancd/fish/enhancd.fish
 function cd
