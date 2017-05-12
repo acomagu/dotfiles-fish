@@ -21,12 +21,7 @@ function cd
             echo $HOME
             z -l | awk '{ print $2 }'
         end | fzf | read -l p
-
-        if [ $status -ne 0 ]
-            return $status
-        end
-
-        builtin cd $p
+        and builtin cd $p
     end
 end
 
