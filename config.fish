@@ -4,8 +4,8 @@ set -x MANPATH $MANPATH $XDG_DATA_HOME/man
 set -x INFOPATH $INFOPATH $XDG_DATA_HOME/info
 set -x GOPATH $HOME/.local
 set -x GHQ_ROOT $GOPATH/src
-set -x RBENV_ROOT $HOME/.local/var/rbenv
 set -x GEM_HOME $XDG_DATA_HOME/gem
+set -x RBENV_ROOT $XDG_DATA_HOME/rbenv
 set -x Z_DATA $XDG_DATA_HOME/z/history
 set -x NODE_PATH $HOME/.local/lib/node_modules
 set -x PATH $PATH $HOME/.local/bin
