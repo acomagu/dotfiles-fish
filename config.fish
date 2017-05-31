@@ -6,9 +6,15 @@ set -x GOPATH $HOME/.local
 set -x GHQ_ROOT $GOPATH/src
 set -x RBENV_ROOT $XDG_DATA_HOME/rbenv
 set -x Z_DATA $XDG_DATA_HOME/z/history
+set -x ANDROID_SDK_ROOT $XDG_DATA_HOME/android-sdk
+set -x ANDROID_SDK_HOME $XDG_DATA_HOME/android-sdk
+set -x ANDROID_HOME  $XDG_DATA_HOME/android-sdk
+set -x GRADLE_USER_HOME $XDG_DATA_HOME/gradle
+set -x PATH $PATH $HOME/.local/opt/android-studio/bin
 set -x NODE_PATH $HOME/.local/lib/node_modules
 set -x PATH $PATH $HOME/.local/bin
 set -x PATH $PATH $RBENV_ROOT/shims
+set -x PATH $PATH $ANDROID_SDK_HOME/platform-tools
 
 rbenv rehash >/dev/null ^&1
 
