@@ -16,6 +16,7 @@ set -x PATH $PATH $HOME/.local/bin
 set -x PATH $PATH $RBENV_ROOT/shims
 set -x PATH $PATH $ANDROID_SDK_HOME/platform-tools
 
+rbenv init - | source
 rbenv rehash >/dev/null ^&1
 
 function cd
