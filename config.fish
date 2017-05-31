@@ -45,9 +45,7 @@ function nvcd
     nvr -c "cd "(realpath $argv)
 end
 
-eval (python3 -m virtualfish compat_aliases)
-
-function fish_prompt
+function fish_right_prompt
     function _is_git_repo
         type -q git; or return 1
         git status -s >/dev/null ^/dev/null
@@ -67,13 +65,18 @@ function fish_prompt
         else
             set color (set_color brblue)
         end
-        set repo_info ":$color"(_git_branch_name)
+        set repo_info "$color"(_git_branch_name)
     end
+
+    echo -n -s $repo_info ' ' (set_color cyan)(prompt_pwd)
+end
+
+function fish_prompt
 
     test $SSH_TTY; and printf (set_color red)(whoami)(set_color white)'@'(set_color yellow)(hostname)' '
 
     test $USER = 'root'; and echo (set_color red)"#"
 
     # Main
-    echo -n -s (set_color cyan)(prompt_pwd) $repo_info ' ' (set_color red)'❯'(set_color yellow)'❯'(set_color green)'❯ '
+    echo -n -s  (set_color cyan)' ❯❯ '
 end
