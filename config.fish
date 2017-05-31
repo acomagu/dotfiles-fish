@@ -37,8 +37,8 @@ function cd
 end
 
 function gcd
-  ghq list | fzf | read -l p
-  and cd (ghq root)/$p
+    ghq list | fzf | read -l p
+    and cd (ghq root)/$p
 end
 
 function nvcd
