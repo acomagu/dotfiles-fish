@@ -21,11 +21,16 @@ rbenv rehash >/dev/null ^&1
 
 function cd
     if count $argv > /dev/null
-        builtin cd $argv
+        if test -e $argv
+            builtin cd $argv
+        else
+            z -l $argv | head -n -1 | awk '{ print $2 }' | fzf -1 | read -l p
+            and builtin cd $p
+        end
     else
-        begin;
+        begin
             echo $HOME
-            z -l | awk '{ print $2 }'
+            z -l | awk '{ print $2 }' | head -n -1
         end | fzf | read -l p
         and builtin cd $p
     end
