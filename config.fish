@@ -1,3 +1,4 @@
+set -x CURL_CA_BUNDLE /etc/ssl/certs/ca-certificates.crt
 set -x XDG_DATA_HOME $HOME/.local/share
 set -x XDG_CONFIG_HOME $HOME/.config
 set -x MANPATH $MANPATH $XDG_DATA_HOME/man
@@ -18,6 +19,22 @@ set -x PATH $PATH $ANDROID_SDK_HOME/platform-tools
 
 rbenv init - | source
 rbenv rehash >/dev/null ^&1
+
+function _is_git_repo
+    git rev-parse --is-inside-work-tree >/dev/null ^/dev/null
+end
+
+function _is_git_dirty
+    not git diff-index --quiet HEAD
+end
+
+function search
+    if _is_git_repo
+        git ls-files | xargs grep $argv
+    else
+        find . -type f | xargs grep $argv
+    end
+end
 
 function cd
     if count $argv > /dev/null
@@ -46,21 +63,12 @@ function nvcd
 end
 
 function fish_right_prompt
-    function _is_git_repo
-        type -q git; or return 1
-        git status -s >/dev/null ^/dev/null
-    end
-
     function _git_branch_name
         echo (git symbolic-ref HEAD ^/dev/null | sed -e 's|^refs/heads/||')
     end
 
-    function _is_git_dirty
-      echo (git status -s --ignore-submodules=dirty ^/dev/null)
-    end
-
     if _is_git_repo
-        if [ (_is_git_dirty) ]
+        if _is_git_dirty
             set color (set_color yellow)
         else
             set color (set_color brblue)
