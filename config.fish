@@ -47,13 +47,13 @@ function cd
         if test -e $argv
             builtin cd $argv
         else
-            z -l $argv | head -n -1 | awk '{ print $2 }' | fzf -1 | read -l p
+            z -l $argv | sed '$d' | awk '{ print $2 }' | fzf -1 | read -l p
             and builtin cd $p
         end
     else
         begin
             echo $HOME
-            z -l | awk '{ print $2 }' | head -n -1
+            z -l | awk '{ print $2 }' | sed '$d'
         end | fzf | read -l p
         and builtin cd $p
     end
