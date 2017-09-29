@@ -36,9 +36,9 @@ end
 
 function search
     if _is_git_repo
-        git ls-files | xargs grep $argv
+        git ls-files | xargs grep --color $argv
     else
-        find . -type f | xargs grep $argv
+        find . -type f | xargs grep --color $argv
     end
 end
 
