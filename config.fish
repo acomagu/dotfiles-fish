@@ -68,6 +68,18 @@ function nvcd
     nvr -c "cd "(realpath $argv)
 end
 
+function pd
+    z -l $argv | sed '$d' | awk '{ print $2 }' | fzf -1
+end
+
+function pf
+    find ~ | fzf -q $argv -1
+end
+
+function gbf
+    git branch | awk '{ print $NF }' | fzf
+end
+
 function fish_right_prompt
     function _git_branch_name
         echo (git symbolic-ref HEAD ^/dev/null | sed -e 's|^refs/heads/||')
