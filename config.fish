@@ -80,6 +80,10 @@ function gbf
     git branch | awk '{ print $NF }' | fzf
 end
 
+function memo
+    twty -a privmagu $argv >/dev/null
+end
+
 function fish_right_prompt
     function _git_branch_name
         echo (git symbolic-ref HEAD ^/dev/null | sed -e 's|^refs/heads/||')
