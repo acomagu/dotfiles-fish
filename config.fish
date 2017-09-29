@@ -86,7 +86,7 @@ end
 
 function fish_right_prompt
     function _git_branch_name
-        echo (git symbolic-ref HEAD ^/dev/null | sed -e 's|^refs/heads/||')
+        git symbolic-ref --short HEAD ^/dev/null
     end
 
     if _is_git_repo
