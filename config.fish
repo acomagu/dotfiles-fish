@@ -1,4 +1,3 @@
-set -x CURL_CA_BUNDLE /etc/ssl/certs/ca-certificates.crt
 set -x XDG_DATA_HOME $HOME/.local/share
 set -x XDG_CONFIG_HOME $HOME/.config
 set -x MANPATH $MANPATH $XDG_DATA_HOME/man
@@ -11,11 +10,18 @@ set -x ANDROID_SDK_ROOT $XDG_DATA_HOME/android-sdk
 set -x ANDROID_SDK_HOME $XDG_DATA_HOME/android-sdk
 set -x ANDROID_HOME  $XDG_DATA_HOME/android-sdk
 set -x GRADLE_USER_HOME $XDG_DATA_HOME/gradle
-set -x PATH $PATH $HOME/.local/opt/android-studio/bin
 set -x NODE_PATH $HOME/.local/lib/node_modules
-set -x PATH $PATH $HOME/.local/bin
-set -x PATH $PATH $RBENV_ROOT/shims
-set -x PATH $PATH $ANDROID_SDK_HOME/platform-tools
+
+function _add_path
+    if test -d $argv
+        set -x PATH $PATH $argv
+    end
+end
+
+_add_path $HOME/.local/opt/android-studio/bin
+_add_path $HOME/.local/bin
+_add_path $RBENV_ROOT/shims
+_add_path $ANDROID_SDK_HOME/platform-tools
 
 rbenv init - | source
 rbenv rehash >/dev/null ^&1
