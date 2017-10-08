@@ -13,6 +13,7 @@ set -x GRADLE_USER_HOME $XDG_DATA_HOME/gradle
 set -x NODE_PATH $HOME/.local/lib/node_modules
 set -x RUSTUP_HOME $XDG_DATA_HOME/rustup
 set -x CARGO_HOME $XDG_DATA_HOME/cargo
+set -x MYPYPATH $XDG_DATA_HOME/mypy
 
 function _add_path
     if test -d $argv
