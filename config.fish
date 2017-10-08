@@ -8,7 +8,7 @@ set -x RBENV_ROOT $XDG_DATA_HOME/rbenv
 set -x Z_DATA $XDG_DATA_HOME/z/history
 set -x ANDROID_SDK_ROOT $XDG_DATA_HOME/android-sdk
 set -x ANDROID_SDK_HOME $XDG_DATA_HOME/android-sdk
-set -x ANDROID_HOME  $XDG_DATA_HOME/android-sdk
+set -x ANDROID_HOME $XDG_DATA_HOME/android-sdk
 set -x GRADLE_USER_HOME $XDG_DATA_HOME/gradle
 set -x NODE_PATH $HOME/.local/lib/node_modules
 set -x RUSTUP_HOME $XDG_DATA_HOME/rustup
