@@ -68,6 +68,10 @@ function gcd
     and cd (ghq root)/$p
 end
 
+function ctf
+    chromix-too ls | fzf | awk '{print $0}' | xargs chromix-too focus
+end
+
 function nvcd
     nvr -c "cd "(realpath $argv)
 end
