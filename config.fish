@@ -22,6 +22,7 @@ _add_path $HOME/.local/opt/android-studio/bin
 _add_path $HOME/.local/bin
 _add_path $RBENV_ROOT/shims
 _add_path $ANDROID_SDK_HOME/platform-tools
+_add_path $XDG_DATA_HOME/google-cloud-sdk/bin
 
 rbenv init - | source
 rbenv rehash >/dev/null ^&1
