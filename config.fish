@@ -46,20 +46,22 @@ function search
     end
 end
 
+functions -c cd _orig_cd
+
 function cd
     if count $argv > /dev/null
-        if test -e $argv
-            builtin cd $argv
+        if test -e $argv; or test $argv = -
+            _orig_cd $argv
         else
             z -l $argv | sed '$d' | awk '{ print $2 }' | fzf -1 | read -l p
-            and builtin cd $p
+            and _orig_cd $p
         end
     else
         begin
             echo $HOME
             z -l | awk '{ print $2 }' | sed '$d'
         end | fzf | read -l p
-        and builtin cd $p
+        and _orig_cd $p
     end
 end
 
