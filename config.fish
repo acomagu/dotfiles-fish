@@ -94,6 +94,10 @@ function memo
     twty -a privmagu $argv >/dev/null
 end
 
+function gdb
+    command gdb -nh -x $XDG_CONFIG_HOME/gdb/init $argv
+end
+
 function fish_right_prompt
     function _git_branch_name
         git symbolic-ref --short HEAD ^/dev/null
