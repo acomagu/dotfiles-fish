@@ -43,10 +43,6 @@ function _is_git_repo
     git rev-parse --is-inside-work-tree >/dev/null ^/dev/null
 end
 
-function _is_git_dirty
-    not git diff-index --quiet HEAD
-end
-
 function search
     if _is_git_repo
         git ls-files | xargs grep --color $argv
@@ -72,6 +68,31 @@ function cd
         end | fzf | read -l p
         and _orig_cd $p
     end
+end
+
+function fish_right_prompt
+    function _is_git_repo
+        git rev-parse --is-inside-work-tree >/dev/null ^/dev/null
+    end
+
+    function _is_git_dirty
+        not git diff --exit-code --quiet
+        or not git diff --staged --exit-code --quiet
+    end
+
+    function _git_branch_name
+        git symbolic-ref --short HEAD ^/dev/null
+    end
+
+    if _is_git_repo
+        _is_git_dirty
+            and set color (set_color yellow)
+            or set color (set_color brblue)
+
+        set repo_info "$color"(_git_branch_name)
+    end
+
+    echo -n -s $repo_info ' ' (set_color cyan)(prompt_pwd)
 end
 
 function gcd
@@ -105,23 +126,6 @@ end
 
 function gdb
     command gdb -nh -x $XDG_CONFIG_HOME/gdb/init $argv
-end
-
-function fish_right_prompt
-    function _git_branch_name
-        git symbolic-ref --short HEAD ^/dev/null
-    end
-
-    if _is_git_repo
-        if _is_git_dirty
-            set color (set_color yellow)
-        else
-            set color (set_color brblue)
-        end
-        set repo_info "$color"(_git_branch_name)
-    end
-
-    echo -n -s $repo_info ' ' (set_color cyan)(prompt_pwd)
 end
 
 function fish_prompt
