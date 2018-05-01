@@ -151,3 +151,9 @@ function fish_prompt
 
     echo -n -s ' ❯'(set_color cyan)'❯ '(set_color normal)
 end
+
+# Configurations for plugins
+
+# async-prompt
+set -g async_prompt_inherit_variables
+set -g async_prompt_functions fish_right_prompt
