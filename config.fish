@@ -51,23 +51,26 @@ function search
     end
 end
 
-functions -c cd _orig_cd
+if not functions -q _orig_cd
+    functions -c cd _orig_cd
+end
 
 function cd
-    if count $argv > /dev/null
+    if count $argv >/dev/null
         if test -e $argv; or test $argv = -
-            _orig_cd $argv
+            set dist $argv
         else
             z -l $argv | sed '$d' | awk '{ print $2 }' | fzf -1 | read -l p
-            and _orig_cd $p
+            and set dist $p
         end
     else
         begin
             echo $HOME
             z -l | awk '{ print $2 }' | sed '$d'
         end | fzf | read -l p
-        and _orig_cd $p
+        and set dist $p
     end
+    _orig_cd $dist
 end
 
 function fish_right_prompt
