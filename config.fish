@@ -118,7 +118,8 @@ function nvo
 end
 
 function nvcd
-    nvr -c "cd "(realpath $argv)
+    realpath $argv |read p
+    nvc ex cd $p
 end
 
 function pd
