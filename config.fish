@@ -1,5 +1,6 @@
 set -x XDG_DATA_HOME $HOME/.local/share
 set -x XDG_CONFIG_HOME $HOME/.config
+set -x XDG_CACHE_HOME $HOME/.cache
 set -x MANPATH $MANPATH $XDG_DATA_HOME/man
 set -x INFOPATH $INFOPATH $XDG_DATA_HOME/info
 set -x GOPATH $HOME/.local
@@ -10,10 +11,15 @@ set -x ANDROID_SDK_ROOT $XDG_DATA_HOME/android-sdk
 set -x ANDROID_SDK_HOME $XDG_DATA_HOME/android-sdk
 set -x ANDROID_HOME $XDG_DATA_HOME/android-sdk
 set -x GRADLE_USER_HOME $XDG_DATA_HOME/gradle
-set -x NODE_PATH $HOME/.local/lib/node_modules
+set -x NODE_PATH $XDG_DATA_HOME/npm/lib/node_modules
+set -x NPM_CONFIG_USERCONFIG $XDG_CONFIG_HOME/npm/npmrc
+set -x JAVA_HOME $HOME/.local/opt/jdk-9.0.1
 set -x RUSTUP_HOME $XDG_DATA_HOME/rustup
 set -x CARGO_HOME $XDG_DATA_HOME/cargo
 set -x MYPYPATH $XDG_DATA_HOME/mypy
+set -x PKG_CONFIG_PATH /usr/lib/x86_64-linux-gnu/pkgconfig:/usr/share/pkgconfig
+set -x AWS_SHARED_CREDENTIALS_FILE $XDG_CONFIG_HOME/aws/credentials
+set -x AWS_CONFIG_FILE $XDG_CONFIG_HOME/aws/config
 
 function _add_path
     if test -d $argv
@@ -23,9 +29,13 @@ end
 
 _add_path $HOME/.local/opt/android-studio/bin
 _add_path $HOME/.local/bin
-_add_path $RBENV_ROOT/shims
 _add_path $ANDROID_SDK_HOME/platform-tools
-_add_path $XDG_DATA_HOME/google-cloud-sdk/bin
+_add_path $XDG_DATA_HOME/linuxbrew/bin
+_add_path $XDG_DATA_HOME/npm/bin
+_add_path $JAVA_HOME/bin
+_add_path $CARGO_HOME/bin
+_add_path /usr/lib/google-cloud-sdk/platform/google_appengine
+_add_path $HOME/.local/opt/Postman
 
 rbenv init - | source
 rbenv rehash >/dev/null ^&1
