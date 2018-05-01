@@ -143,11 +143,11 @@ function gdb
 end
 
 function fish_prompt
+    set last_status $status
 
-    test $SSH_TTY; and printf (set_color red)(whoami)(set_color white)'@'(set_color yellow)(hostname)' '
+    test $last_status = 0
+    and set_color cyan
+    or set_color yellow
 
-    test $USER = 'root'; and echo (set_color red)"#"
-
-    # Main
-    echo -n -s  (set_color cyan)' ❯❯ '
+    echo -n -s ' ❯'(set_color cyan)'❯ '(set_color normal)
 end
