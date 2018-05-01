@@ -38,7 +38,6 @@ _add_path /usr/lib/google-cloud-sdk/platform/google_appengine
 _add_path $HOME/.local/opt/Postman
 
 rbenv init - | source
-rbenv rehash >/dev/null ^&1
 
 function _is_git_repo
     git rev-parse --is-inside-work-tree >/dev/null ^/dev/null
