@@ -107,6 +107,16 @@ function ctf
     chromix-too ls | fzf | awk '{print $0}' | xargs chromix-too focus
 end
 
+function nvo
+    if test -d $argv
+        read -P'It\'s directory. Sure? ' a
+        and test "$a" = 'y'
+        or return
+    end
+
+    nvc ex e (realpath $argv)
+end
+
 function nvcd
     nvr -c "cd "(realpath $argv)
 end
