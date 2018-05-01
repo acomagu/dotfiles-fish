@@ -23,7 +23,7 @@ set -x AWS_CONFIG_FILE $XDG_CONFIG_HOME/aws/config
 
 function _add_path
     if test -d $argv
-        set -x PATH $PATH $argv
+        set -x PATH $argv $PATH
     end
 end
 
