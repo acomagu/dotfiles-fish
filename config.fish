@@ -38,6 +38,7 @@ end
 
 _add_path $HOME/.local/opt/android-studio/bin
 _add_path $HOME/.local/bin
+_add_path $HOMEBREW_ROOT/bin
 _add_path $ANDROID_SDK_HOME/platform-tools
 _add_path $XDG_DATA_HOME/linuxbrew/bin
 _add_path $XDG_DATA_HOME/npm/bin
