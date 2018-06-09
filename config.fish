@@ -12,6 +12,7 @@ set -x CPATH "$CPATH $HOMEBREW_ROOT/include"
 set -x LDFLAGS "$LDFLAGS -L$HOMEBREW_ROOT/lib"
 set -x LIBRARY_PATH "$LIBRARY_PATH $HOMEBREW_ROOT/lib"
 set -x LD_LIBRARY_PATH "/usr/lib/x86_64-linux-gnu:/usr/local/lib:$HOMEBREW_ROOT/lib"
+set -x HOMEBREW_VERBOSE 1
 set -x GOPATH $HOME/.local
 set -x GHQ_ROOT $GOPATH/src
 set -x RBENV_ROOT $XDG_DATA_HOME/rbenv
