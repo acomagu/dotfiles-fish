@@ -49,6 +49,8 @@ _add_path $HOME/.local/opt/Postman
 
 rbenv init - | source
 
+salias __init__ | source
+
 function _is_git_repo
     git rev-parse --is-inside-work-tree >/dev/null ^/dev/null
 end
