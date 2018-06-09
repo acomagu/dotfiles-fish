@@ -110,6 +110,10 @@ function fish_right_prompt
     echo -n -s $repo_info ' ' (set_color cyan)(prompt_pwd)
 end
 
+function tmux
+    command tmux -f $XDG_CONFIG_HOME/tmux/tmux.conf $argv
+end
+
 function gcd
     ghq list | fzf | read -l p
     and cd (ghq root)/$p
@@ -132,6 +136,21 @@ end
 function nvcd
     realpath $argv |read p
     nvc ex cd $p
+end
+
+function to
+    if test -z "$TMUX"
+        nvim $argv
+        return
+    end
+
+    if test -d $argv
+        read -P'It\'s directory. Sure? ' a
+        and test "$a" = 'y'
+        or return
+    end
+
+    tmux copy-mode\; new-window nvim (realpath $argv)
 end
 
 function pd
