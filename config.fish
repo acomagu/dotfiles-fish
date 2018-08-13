@@ -82,7 +82,7 @@ function cd
         end | fzf | read -l p
         and set dist $p
     end
-    _orig_cd $dist
+    and _orig_cd $dist
 end
 
 function fish_right_prompt
