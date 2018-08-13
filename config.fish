@@ -150,7 +150,9 @@ function to
         or return
     end
 
-    tmux copy-mode\; new-window nvim (realpath $argv)
+    tmux list-panes -s -F'#{window_id} #{pane_id} #{pane_start_command}' | grep 'nvim '(realpath $argv) | read wid pid _
+    and tmux copy-mode\; select-window -t"$wid"\; select-pane -t"$pid"
+    or tmux copy-mode\; new-window nvim (realpath $argv)
 end
 
 function pd
