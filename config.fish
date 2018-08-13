@@ -115,7 +115,7 @@ function tmux
 end
 
 function gcd
-    ghq list | fzf | read -l p
+    find $GHQ_ROOT -regex $GHQ_ROOT'.*/\(\..*\|vendor\|node_modules\|.*test.*\)$' -prune -o -type d -path $GHQ_ROOT'/*/*/*' -printf '%P\n' | fzf | read -l p
     and cd (ghq root)/$p
 end
 
