@@ -22,6 +22,8 @@ set -x ANDROID_SDK_HOME $XDG_DATA_HOME/android-sdk
 set -x ANDROID_HOME $XDG_DATA_HOME/android-sdk
 set -x GRADLE_USER_HOME $XDG_DATA_HOME/gradle
 set -x NODE_PATH $XDG_DATA_HOME/npm/lib/node_modules
+set -x NVM_PATH $XDG_DATA_HOME/nvm
+set -x NVM_DIR (readlink -f $HOMEBREW_ROOT/opt/nvm)
 set -x NPM_CONFIG_USERCONFIG $XDG_CONFIG_HOME/npm/npmrc
 set -x JAVA_HOME $HOME/.local/opt/jdk-9.0.1
 set -x RUSTUP_HOME $XDG_DATA_HOME/rustup
