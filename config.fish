@@ -1,4 +1,4 @@
-set HOMEBREW_ROOT /home/linuxbrew/.linuxbrew
+set HOMEBREW_ROOT (brew --prefix)
 set -x XDG_DATA_HOME $HOME/.local/share
 set -x XDG_CONFIG_HOME $HOME/.config
 set -x XDG_CACHE_HOME $HOME/.cache
@@ -19,7 +19,7 @@ set -x ANDROID_HOME $XDG_DATA_HOME/android-sdk
 set -x GRADLE_USER_HOME $XDG_DATA_HOME/gradle
 set -x NODE_PATH $XDG_DATA_HOME/npm/lib/node_modules
 set -x NVM_PATH $XDG_DATA_HOME/nvm
-set -x NVM_DIR (readlink -f $HOMEBREW_ROOT/opt/nvm)
+set -x NVM_DIR (readlink -e $HOMEBREW_ROOT/opt/nvm)
 set -x NPM_CONFIG_USERCONFIG $XDG_CONFIG_HOME/npm/npmrc
 set -x JAVA_HOME $HOME/.local/opt/jdk-9.0.1
 set -x RUSTUP_HOME $XDG_DATA_HOME/rustup
@@ -44,10 +44,15 @@ _add_path $JAVA_HOME/bin
 _add_path $CARGO_HOME/bin
 _add_path /usr/lib/google-cloud-sdk/platform/google_appengine
 _add_path $HOME/.local/opt/Postman
+_add_path $HOMEBREW_ROOT/opt/coreutils/libexec/gnubin
 
-rbenv init - | source
+if type -q rbenv
+    rbenv init - | source
+end
 
-salias __init__ | source
+if type -q salias
+    salias __init__ | source
+end
 
 function _is_git_repo
     git rev-parse --is-inside-work-tree >/dev/null ^/dev/null
