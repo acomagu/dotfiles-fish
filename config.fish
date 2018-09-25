@@ -1,3 +1,11 @@
+function _add_path
+    if test -d $argv
+        set -x PATH $argv $PATH
+    end
+end
+
+_add_path /home/linuxbrew/.linuxbrew/bin
+
 set HOMEBREW_ROOT (brew --prefix)
 set -x XDG_DATA_HOME $HOME/.local/share
 set -x XDG_CONFIG_HOME $HOME/.config
@@ -28,15 +36,8 @@ set -x MYPYPATH $XDG_DATA_HOME/mypy
 set -x AWS_SHARED_CREDENTIALS_FILE $XDG_CONFIG_HOME/aws/credentials
 set -x AWS_CONFIG_FILE $XDG_CONFIG_HOME/aws/config
 
-function _add_path
-    if test -d $argv
-        set -x PATH $argv $PATH
-    end
-end
-
 _add_path $HOME/.local/opt/android-studio/bin
 _add_path $HOME/.local/bin
-_add_path $HOMEBREW_ROOT/bin
 _add_path $ANDROID_SDK_HOME/platform-tools
 _add_path $XDG_DATA_HOME/linuxbrew/bin
 _add_path $XDG_DATA_HOME/npm/bin
