@@ -68,19 +68,24 @@ end
 function cd
     if count $argv >/dev/null
         if test -e $argv; or test $argv = -
-            set dist $argv
+            echo $argv
         else
-            z -l $argv | sed '$d' | awk '{ print $2 }' | fzf -1 | read -l p
-            and set dist $p
+            z -l $argv 2>&1 | begin
+                read -l line
+                and if string match -q -r '^common:' "$line"
+                    read -l line
+                    and echo $line
+                else
+                    echo $line
+                    cat
+                end
+            end | awk '{ print $2 }'
         end
     else
-        begin
-            echo $HOME
-            z -l | awk '{ print $2 }' | sed '$d'
-        end | fzf | read -l p
-        and set dist $p
-    end
-    and _orig_cd $dist
+        echo $HOME
+        z -l | awk '{ print $2 }'
+    end | sed '/^$/d' | fzf -1 | read -l p
+    and _orig_cd $p
 end
 
 function fish_right_prompt
