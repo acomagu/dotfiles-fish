@@ -2,8 +2,6 @@ set HOMEBREW_ROOT /home/linuxbrew/.linuxbrew
 set -x XDG_DATA_HOME $HOME/.local/share
 set -x XDG_CONFIG_HOME $HOME/.config
 set -x XDG_CACHE_HOME $HOME/.cache
-set -x MANPATH $MANPATH $XDG_DATA_HOME/man
-set -x INFOPATH $INFOPATH $XDG_DATA_HOME/info
 set -x CC clang
 set -x CXX clang++
 set -x PKG_CONFIG_PATH "$PKG_CONFIG_PATH:/usr/lib/x86_64-linux-gnu/pkgconfig:/usr/share/pkgconfig:$HOMEBREW_ROOT/lib/pkgconfig:$HOMEBREW_ROOT/share/pkgconfig"
