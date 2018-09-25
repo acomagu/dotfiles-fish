@@ -36,15 +36,13 @@ set -x MYPYPATH $XDG_DATA_HOME/mypy
 set -x AWS_SHARED_CREDENTIALS_FILE $XDG_CONFIG_HOME/aws/credentials
 set -x AWS_CONFIG_FILE $XDG_CONFIG_HOME/aws/config
 
-_add_path $HOME/.local/opt/android-studio/bin
 _add_path $HOME/.local/bin
 _add_path $ANDROID_SDK_HOME/platform-tools
-_add_path $XDG_DATA_HOME/linuxbrew/bin
+_add_path $HOME/.local/opt/android-studio/bin
 _add_path $XDG_DATA_HOME/npm/bin
 _add_path $JAVA_HOME/bin
 _add_path $CARGO_HOME/bin
 _add_path /usr/lib/google-cloud-sdk/platform/google_appengine
-_add_path $HOME/.local/opt/Postman
 _add_path $HOMEBREW_ROOT/opt/coreutils/libexec/gnubin
 
 if type -q rbenv
