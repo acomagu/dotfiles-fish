@@ -176,3 +176,30 @@ end
 # async-prompt
 set -g async_prompt_inherit_variables
 set -g async_prompt_functions fish_right_prompt
+
+function git
+    if test -z "$argv"
+        command git
+        return
+    end
+
+    switch $argv[1]
+        case push
+            set -l head
+            if not string join \n -- $argv | sed 1d | grep -E '^[^-]' >/dev/null
+                and command git status -b --porcelain=v2 | grep -E 'upstream|head' | cut -d' ' -f3 | begin
+                    read head
+                    and not read -l upstream
+                end
+                and command git remote get-url origin >/dev/null
+                and read -P"Set origin/$head as the upstream branch? [Y/n]: " -l ans
+                and contains "$ans" y Y ''
+
+                command git $argv -u origin $head
+            else
+                command git $argv
+            end
+        case '*'
+            command git $argv
+    end
+end
