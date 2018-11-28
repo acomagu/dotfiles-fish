@@ -10,7 +10,7 @@ set HOMEBREW_ROOT (brew --prefix)
 set -x XDG_DATA_HOME $HOME/.local/share
 set -x XDG_CONFIG_HOME $HOME/.config
 set -x XDG_CACHE_HOME $HOME/.cache
-set -x PKG_CONFIG_PATH "$PKG_CONFIG_PATH:/usr/lib/x86_64-linux-gnu/pkgconfig:/usr/share/pkgconfig:$HOMEBREW_ROOT/lib/pkgconfig:$HOMEBREW_ROOT/share/pkgconfig"
+set -x PKG_CONFIG_PATH "$PKG_CONFIG_PATH:/usr/lib/x86_64-linux-gnu/pkgconfig:/usr/share/pkgconfig:/usr/lib/pkgconfig:$HOMEBREW_ROOT/lib/pkgconfig:$HOMEBREW_ROOT/share/pkgconfig"
 set -x CFLAGS "$CFLAGS -I$HOMEBREW_ROOT/include"
 set -x CPATH "$CPATH $HOMEBREW_ROOT/include"
 set -x LDFLAGS "$LDFLAGS -L$HOMEBREW_ROOT/lib"
