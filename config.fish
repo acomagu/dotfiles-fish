@@ -40,7 +40,6 @@ set -x GRADLE_USER_HOME $XDG_DATA_HOME/gradle
 set -x NODE_PATH $XDG_DATA_HOME/npm/lib/node_modules
 set -x NVM_PATH $XDG_DATA_HOME/nvm
 set -x NPM_CONFIG_USERCONFIG $XDG_CONFIG_HOME/npm/npmrc
-set -x JAVA_HOME $HOME/.local/opt/jdk-9.0.1
 set -x RUSTUP_HOME $XDG_DATA_HOME/rustup
 set -x CARGO_HOME $XDG_DATA_HOME/cargo
 set -x MYPYPATH $XDG_DATA_HOME/mypy
@@ -51,7 +50,6 @@ _add_path $HOME/.local/bin
 _add_path $ANDROID_SDK_HOME/platform-tools
 _add_path $HOME/.local/opt/android-studio/bin
 _add_path $XDG_DATA_HOME/npm/bin
-_add_path $JAVA_HOME/bin
 _add_path $CARGO_HOME/bin
 _add_path /usr/lib/google-cloud-sdk/platform/google_appengine
 
