@@ -49,6 +49,7 @@ set -x WINEPREFIX $XDG_DATA_HOME/wine
 set -x VST_PATH $VST_PATH:$XDG_DATA_HOME/vst
 set -x LESSHISTFILE $XDG_DATA_HOME/less/history
 set -x LESSKEY $XDG_DATA_HOME/less/keys
+set -x GNUPGHOME $XDG_DATA_HOME/gnupg
 
 _add_path $HOME/.local/bin
 _add_path $ANDROID_SDK_HOME/platform-tools
