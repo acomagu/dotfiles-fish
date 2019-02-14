@@ -1,6 +1,8 @@
 function _add_path
-    if test -d $argv
-        set -x PATH $argv $PATH
+    for path in $argv
+        if test -d $path
+            set -x PATH $path $PATH
+        end
     end
 end
 
@@ -54,12 +56,15 @@ set -x GNUPGHOME $XDG_DATA_HOME/gnupg
 set -x MPLAYER_HOME $XDG_CONFIG_HOME/mplayer
 set -x MKSHELL rc
 
+set -l appengine_paths $HOME/.local/opt/google-cloud-sdk /usr/lib/google-cloud-sdk
+
 _add_path $HOME/.local/bin
 _add_path $ANDROID_SDK_HOME/platform-tools
 _add_path $HOME/.local/opt/android-studio/bin
 _add_path $XDG_DATA_HOME/npm/bin
 _add_path $CARGO_HOME/bin
-_add_path /usr/lib/google-cloud-sdk/platform/google_appengine
+_add_path $appengine_paths/bin
+_add_path $appengine_paths/platform/google_appengine
 
 if type -q rbenv
     rbenv init - | source
