@@ -5,18 +5,22 @@ function _add_path
 end
 
 _add_path /home/linuxbrew/.linuxbrew/bin
+if type -q brew
+    set HOMEBREW_ROOT (brew --prefix)
+    _add_path $HOMEBREW_ROOT/opt/coreutils/libexec/gnubin
+    set -x HOMEBREW_VERBOSE 1
+    set -x LD_LIBRARY_PATH "/usr/lib/x86_64-linux-gnu:/usr/local/lib:$HOMEBREW_ROOT/lib"
+    set -x PKG_CONFIG_PATH "$PKG_CONFIG_PATH:/usr/lib/x86_64-linux-gnu/pkgconfig:/usr/share/pkgconfig:/usr/lib/pkgconfig:$HOMEBREW_ROOT/lib/pkgconfig:$HOMEBREW_ROOT/share/pkgconfig"
+    set -x CFLAGS "$CFLAGS -I$HOMEBREW_ROOT/include"
+    set -x CPATH "$CPATH $HOMEBREW_ROOT/include"
+    set -x LDFLAGS "$LDFLAGS -L$HOMEBREW_ROOT/lib"
+    set -x LIBRARY_PATH "$LIBRARY_PATH $HOMEBREW_ROOT/lib"
+    set -x NVM_DIR (readlink -e $HOMEBREW_ROOT/opt/nvm)
+end
 
-set HOMEBREW_ROOT (brew --prefix)
 set -x XDG_DATA_HOME $HOME/.local/share
 set -x XDG_CONFIG_HOME $HOME/.config
 set -x XDG_CACHE_HOME $HOME/.cache
-set -x PKG_CONFIG_PATH "$PKG_CONFIG_PATH:/usr/lib/x86_64-linux-gnu/pkgconfig:/usr/share/pkgconfig:/usr/lib/pkgconfig:$HOMEBREW_ROOT/lib/pkgconfig:$HOMEBREW_ROOT/share/pkgconfig"
-set -x CFLAGS "$CFLAGS -I$HOMEBREW_ROOT/include"
-set -x CPATH "$CPATH $HOMEBREW_ROOT/include"
-set -x LDFLAGS "$LDFLAGS -L$HOMEBREW_ROOT/lib"
-set -x LIBRARY_PATH "$LIBRARY_PATH $HOMEBREW_ROOT/lib"
-set -x LD_LIBRARY_PATH "/usr/lib/x86_64-linux-gnu:/usr/local/lib:$HOMEBREW_ROOT/lib"
-set -x HOMEBREW_VERBOSE 1
 set -x GOPATH $HOME/.local
 set -x GHQ_ROOT $GOPATH/src
 set -x RBENV_ROOT $XDG_DATA_HOME/rbenv
@@ -27,7 +31,6 @@ set -x ANDROID_HOME $XDG_DATA_HOME/android-sdk
 set -x GRADLE_USER_HOME $XDG_DATA_HOME/gradle
 set -x NODE_PATH $XDG_DATA_HOME/npm/lib/node_modules
 set -x NVM_PATH $XDG_DATA_HOME/nvm
-set -x NVM_DIR (readlink -e $HOMEBREW_ROOT/opt/nvm)
 set -x NPM_CONFIG_USERCONFIG $XDG_CONFIG_HOME/npm/npmrc
 set -x JAVA_HOME $HOME/.local/opt/jdk-9.0.1
 set -x RUSTUP_HOME $XDG_DATA_HOME/rustup
@@ -43,7 +46,6 @@ _add_path $XDG_DATA_HOME/npm/bin
 _add_path $JAVA_HOME/bin
 _add_path $CARGO_HOME/bin
 _add_path /usr/lib/google-cloud-sdk/platform/google_appengine
-_add_path $HOMEBREW_ROOT/opt/coreutils/libexec/gnubin
 
 if type -q rbenv
     rbenv init - | source
