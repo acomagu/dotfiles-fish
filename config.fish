@@ -32,8 +32,9 @@ set -x XDG_PICTURES_DIR $HOME/desktop
 set -x XDG_PUBLICSHARE_DIR $HOME/desktop
 set -x XDG_TEMPLATES_DIR $HOME/desktop
 set -x XDG_VIDEOS_DIR $HOME/desktop
-set -x GOPATH $HOME/.local
-set -x GHQ_ROOT $GOPATH/src
+set -x GO111MODULE on
+set -x GOPATH $HOME/.local/share/go
+set -x GHQ_ROOT $HOME/.local/src
 set -x RBENV_ROOT $XDG_DATA_HOME/rbenv
 set -x Z_DATA $XDG_DATA_HOME/z/history
 set -x ANDROID_SDK_ROOT $XDG_DATA_HOME/android-sdk
@@ -59,6 +60,7 @@ set -x MKSHELL rc
 set -l appengine_paths $HOME/.local/opt/google-cloud-sdk /usr/lib/google-cloud-sdk
 
 _add_path $HOME/.local/bin
+_add_path $GOPATH/bin
 _add_path $ANDROID_SDK_HOME/platform-tools
 _add_path $HOME/.local/opt/android-studio/bin
 _add_path $XDG_DATA_HOME/npm/bin
