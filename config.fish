@@ -21,6 +21,14 @@ end
 set -x XDG_DATA_HOME $HOME/.local/share
 set -x XDG_CONFIG_HOME $HOME/.config
 set -x XDG_CACHE_HOME $HOME/.cache
+set -x XDG_DESKTOP_DIR $HOME/desktop
+set -x XDG_DOCUMENTS_DIR $HOME/desktop
+set -x XDG_DOWNLOAD_DIR $HOME/desktop
+set -x XDG_MUSIC_DIR $HOME/desktop
+set -x XDG_PICTURES_DIR $HOME/desktop
+set -x XDG_PUBLICSHARE_DIR $HOME/desktop
+set -x XDG_TEMPLATES_DIR $HOME/desktop
+set -x XDG_VIDEOS_DIR $HOME/desktop
 set -x GOPATH $HOME/.local
 set -x GHQ_ROOT $GOPATH/src
 set -x RBENV_ROOT $XDG_DATA_HOME/rbenv
