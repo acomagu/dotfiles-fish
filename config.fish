@@ -234,3 +234,28 @@ function yay
     end
     command yay --sudoloop $argv
 end
+
+function genid
+    echo 'abcdefghijklmnopqrstuvwxyz1234567890' | string split '' | shuf | head -n3 | string join ''
+end
+
+function hugo
+    set -l cmd $argv[1]
+    switch "$cmd"
+        case new
+            set -l cmd $argv[2]
+            switch "$cmd"
+                case image
+                    set -l id $argv[3]
+                    set -l path $argv[4]
+                    set -l ext (echo $path | awk -F. '{ print $NF }')
+                    set -l fname (genid).$ext
+                    mkdir -p static/assets/$id
+                    and cp $path static/assets/$id/$fname
+                    and echo "![](/assets/$id/$fname)"
+                    return
+            end
+    end
+
+    command hugo $argv
+end
