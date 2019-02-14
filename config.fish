@@ -200,6 +200,15 @@ function git
 
     switch $argv[1]
         case push
+            set -l ghuser acomagu
+            if test -z (git remote)
+                and git rev-parse --show-toplevel | sed 's|^'(ghq root)"/github.com/$ghuser/\(.*\)\$|\1|" | read -l dirname
+                and read -P"Set git@github.com:$ghuser/$dirname as origin remote branch? [Y/n]: " -l ans
+                and contains "$ans" y Y ''
+
+                command git remote add origin git@github.com:$ghuser/$dirname
+            end
+
             set -l head
             if not string join \n -- $argv | sed 1d | grep -E '^[^-]' >/dev/null
                 and command git status -b --porcelain=v2 | grep -E 'upstream|head' | cut -d' ' -f3 | begin
