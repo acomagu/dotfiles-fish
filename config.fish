@@ -51,6 +51,7 @@ set -x LESSHISTFILE $XDG_DATA_HOME/less/history
 set -x LESSKEY $XDG_DATA_HOME/less/keys
 set -x GNUPGHOME $XDG_DATA_HOME/gnupg
 set -x MPLAYER_HOME $XDG_CONFIG_HOME/mplayer
+set -x MKSHELL rc
 
 _add_path $HOME/.local/bin
 _add_path $ANDROID_SDK_HOME/platform-tools
