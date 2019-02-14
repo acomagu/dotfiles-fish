@@ -47,6 +47,8 @@ set -x AWS_SHARED_CREDENTIALS_FILE $XDG_CONFIG_HOME/aws/credentials
 set -x AWS_CONFIG_FILE $XDG_CONFIG_HOME/aws/config
 set -x WINEPREFIX $XDG_DATA_HOME/wine
 set -x VST_PATH $VST_PATH:$XDG_DATA_HOME/vst
+set -x LESSHISTFILE $XDG_DATA_HOME/less/history
+set -x LESSKEY $XDG_DATA_HOME/less/keys
 
 _add_path $HOME/.local/bin
 _add_path $ANDROID_SDK_HOME/platform-tools
