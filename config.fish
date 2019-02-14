@@ -227,3 +227,10 @@ function git
             command git $argv
     end
 end
+
+function yay
+    if test -z "$argv"
+        command yay --sudoloop -Syu
+    end
+    command yay --sudoloop $argv
+end
