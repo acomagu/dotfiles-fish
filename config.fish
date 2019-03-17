@@ -11,6 +11,7 @@ if type -q brew
     set HOMEBREW_ROOT (brew --prefix)
     _add_path $HOMEBREW_ROOT/opt/coreutils/libexec/gnubin
     _add_path $HOMEBREW_ROOT/opt/findutils/libexec/gnubin
+    _add_path $HOMEBREW_ROOT/opt/gnu-sed/libexec/gnubin
     set -x HOMEBREW_VERBOSE 1
     set -x LD_LIBRARY_PATH "/usr/lib/x86_64-linux-gnu:/usr/local/lib:$HOMEBREW_ROOT/lib"
     set -x PKG_CONFIG_PATH "$PKG_CONFIG_PATH:/usr/lib/x86_64-linux-gnu/pkgconfig:/usr/share/pkgconfig:/usr/lib/pkgconfig:$HOMEBREW_ROOT/lib/pkgconfig:$HOMEBREW_ROOT/share/pkgconfig"
