@@ -268,3 +268,33 @@ function hugo
 
     command hugo $argv
 end
+
+function goinstall
+    if test $GO111MODULE != on
+        echo 'GO111MODULE is not on' >&2
+        return 1
+    end
+
+    set -l mod
+    if test (count $argv) -ge 1
+        set mod $argv
+    else
+        set mod (pwd | sed -n 's|.*\(github.com/[^/]\+/[^/]\+\).*|\1|p')
+    end
+    if test (count $mod) -ne 1
+        echo "Could not determine the module name: $mod" >&2
+        return 1
+    end
+
+    set -l prodrt "$GHQ_ROOT/$mod"
+    test -e $prodrt/go.mod || echo "module $mod" > $prodrt/go.mod
+    echo "
+        cd $prodrt
+        go install
+    " | fish
+end
+
+function goget
+    ghq get -p --shallow https://$argv
+    goinstall $argv
+end
