@@ -298,3 +298,15 @@ function goget
     ghq get -p --shallow https://$argv
     goinstall $argv
 end
+
+function encode-uri
+    if test -z "$argv"
+        cat
+    else
+        echo $argv
+    end | perl -MURI::Escape -le '
+        my $in = <STDIN>;
+        chomp($in);
+        print uri_escape($in);
+    '
+end
