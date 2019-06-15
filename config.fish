@@ -94,7 +94,7 @@ end
 
 function cd
     if count $argv >/dev/null
-        if test -e $argv; or test $argv = -
+        if test -e $argv || test $argv = -
             echo $argv
         else
             z -l $argv 2>&1 | begin
