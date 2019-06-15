@@ -231,6 +231,9 @@ function git
             else
                 command git $argv
             end
+        case add
+            command git $argv
+            and command git status
         case '*'
             command git $argv
     end
