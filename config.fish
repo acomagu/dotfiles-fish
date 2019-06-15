@@ -141,7 +141,7 @@ function fish_right_prompt
 end
 
 function gcd
-    find $GHQ_ROOT -regex $GHQ_ROOT'.*/\(\..*\|vendor\|node_modules\|.*test.*\)$' -prune -o -type d -path $GHQ_ROOT'/*/*/*' -printf '%P\n' | fzf | read -l p
+    ghq list | fzf | read -l p
     and cd (ghq root)/$p
 end
 
