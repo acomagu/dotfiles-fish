@@ -43,6 +43,7 @@ set -x CARGO_HOME $XDG_DATA_HOME/cargo
 set -x GHQ_ROOT $HOME/.local/src
 set -x GNUPGHOME $XDG_DATA_HOME/gnupg
 set -x GOPATH $HOME/.local
+set -x GOPROXY https://proxy.golang.org
 set -x GRADLE_USER_HOME $XDG_DATA_HOME/gradle
 set -x LESSHISTFILE $XDG_DATA_HOME/less/history
 set -x LESSKEY $XDG_DATA_HOME/less/keys
