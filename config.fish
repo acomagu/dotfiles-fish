@@ -74,6 +74,8 @@ _add_path $CARGO_HOME/bin
 _add_path $appengine_paths/bin
 _add_path $appengine_paths/platform/google_appengine
 
+bind \cd delete-char
+
 if type -q rbenv
     rbenv init - | source
 end
