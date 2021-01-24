@@ -22,9 +22,9 @@ if type -q brew
     set -x NVM_DIR (readlink -e $HOMEBREW_ROOT/opt/nvm)
 end
 
-set -x XDG_DATA_HOME $HOME/.local/share
-set -x XDG_CONFIG_HOME $HOME/.config
 set -x XDG_CACHE_HOME $HOME/.cache
+set -x XDG_CONFIG_HOME $HOME/.config
+set -x XDG_DATA_HOME $HOME/.local/share
 set -x XDG_DESKTOP_DIR $HOME/desktop
 set -x XDG_DOCUMENTS_DIR $HOME/desktop
 set -x XDG_DOWNLOAD_DIR $HOME/desktop
@@ -33,30 +33,31 @@ set -x XDG_PICTURES_DIR $HOME/desktop
 set -x XDG_PUBLICSHARE_DIR $HOME/desktop
 set -x XDG_TEMPLATES_DIR $HOME/desktop
 set -x XDG_VIDEOS_DIR $HOME/desktop
+
+set -x ANDROID_HOME $XDG_DATA_HOME/android-sdk
+set -x ANDROID_SDK_HOME $XDG_DATA_HOME/android-sdk
+set -x ANDROID_SDK_ROOT $XDG_DATA_HOME/android-sdk
+set -x AWS_CONFIG_FILE $XDG_CONFIG_HOME/aws/config
+set -x AWS_SHARED_CREDENTIALS_FILE $XDG_CONFIG_HOME/aws/credentials
+set -x CARGO_HOME $XDG_DATA_HOME/cargo
+set -x GHQ_ROOT $HOME/.local/src
+set -x GNUPGHOME $XDG_DATA_HOME/gnupg
 set -x GO111MODULE on
 set -x GOPATH $HOME/.local
-set -x GHQ_ROOT $HOME/.local/src
-set -x RBENV_ROOT $XDG_DATA_HOME/rbenv
-set -x Z_DATA $XDG_DATA_HOME/z/history
-set -x ANDROID_SDK_ROOT $XDG_DATA_HOME/android-sdk
-set -x ANDROID_SDK_HOME $XDG_DATA_HOME/android-sdk
-set -x ANDROID_HOME $XDG_DATA_HOME/android-sdk
 set -x GRADLE_USER_HOME $XDG_DATA_HOME/gradle
-set -x NODE_PATH $XDG_DATA_HOME/npm/lib/node_modules
-set -x NVM_PATH $XDG_DATA_HOME/nvm
-set -x NPM_CONFIG_USERCONFIG $XDG_CONFIG_HOME/npm/npmrc
-set -x RUSTUP_HOME $XDG_DATA_HOME/rustup
-set -x CARGO_HOME $XDG_DATA_HOME/cargo
-set -x MYPYPATH $XDG_DATA_HOME/mypy
-set -x AWS_SHARED_CREDENTIALS_FILE $XDG_CONFIG_HOME/aws/credentials
-set -x AWS_CONFIG_FILE $XDG_CONFIG_HOME/aws/config
-set -x WINEPREFIX $XDG_DATA_HOME/wine
-set -x VST_PATH $VST_PATH:$XDG_DATA_HOME/vst
 set -x LESSHISTFILE $XDG_DATA_HOME/less/history
 set -x LESSKEY $XDG_DATA_HOME/less/keys
-set -x GNUPGHOME $XDG_DATA_HOME/gnupg
-set -x MPLAYER_HOME $XDG_CONFIG_HOME/mplayer
 set -x MKSHELL rc
+set -x MPLAYER_HOME $XDG_CONFIG_HOME/mplayer
+set -x MYPYPATH $XDG_DATA_HOME/mypy
+set -x NODE_PATH $XDG_DATA_HOME/npm/lib/node_modules
+set -x NPM_CONFIG_USERCONFIG $XDG_CONFIG_HOME/npm/npmrc
+set -x NVM_PATH $XDG_DATA_HOME/nvm
+set -x RBENV_ROOT $XDG_DATA_HOME/rbenv
+set -x RUSTUP_HOME $XDG_DATA_HOME/rustup
+set -x VST_PATH $VST_PATH:$XDG_DATA_HOME/vst
+set -x WINEPREFIX $XDG_DATA_HOME/wine
+set -x Z_DATA $XDG_DATA_HOME/z/history
 
 set -l appengine_paths $HOME/.local/opt/google-cloud-sdk /usr/lib/google-cloud-sdk
 
