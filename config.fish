@@ -42,7 +42,6 @@ set -x AWS_SHARED_CREDENTIALS_FILE $XDG_CONFIG_HOME/aws/credentials
 set -x CARGO_HOME $XDG_DATA_HOME/cargo
 set -x GHQ_ROOT $HOME/.local/src
 set -x GNUPGHOME $XDG_DATA_HOME/gnupg
-set -x GO111MODULE on
 set -x GOPATH $HOME/.local
 set -x GRADLE_USER_HOME $XDG_DATA_HOME/gradle
 set -x LESSHISTFILE $XDG_DATA_HOME/less/history
