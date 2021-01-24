@@ -40,6 +40,7 @@ set -x ANDROID_SDK_ROOT $XDG_DATA_HOME/android-sdk
 set -x AWS_CONFIG_FILE $XDG_CONFIG_HOME/aws/config
 set -x AWS_SHARED_CREDENTIALS_FILE $XDG_CONFIG_HOME/aws/credentials
 set -x CARGO_HOME $XDG_DATA_HOME/cargo
+set -x CDK_HOME $XDG_DATA_HOME/cdk
 set -x GHQ_ROOT $HOME/.local/src
 set -x GNUPGHOME $XDG_DATA_HOME/gnupg
 set -x GOPATH $HOME/.local
@@ -58,6 +59,7 @@ set -x NVM_PATH $XDG_DATA_HOME/nvm
 set -x QT_LOGGING_RULES '*.debug=false;qt.qpa.*=false'
 set -x RBENV_ROOT $XDG_DATA_HOME/rbenv
 set -x RUSTUP_HOME $XDG_DATA_HOME/rustup
+set -x STEAM_LIBRARY_PATH $XDG_DATA_HOME/Steam
 set -x VST_PATH $VST_PATH:$XDG_DATA_HOME/vst
 set -x WINEPREFIX $XDG_DATA_HOME/wine
 set -x Z_DATA $XDG_DATA_HOME/z/history
