@@ -334,3 +334,7 @@ end
 function diff
     git diff --no-index $argv
 end
+
+function sshfs
+    command sshfs -o reconnect,ServerAliveInterval=15,ServerAliveCountMax=1 $argv
+end
