@@ -246,6 +246,8 @@ function git
         case add
             command git $argv
             and command git status
+        case chb
+            git branch --sort=-committerdate --color | fzf --reverse --ansi | awk '{ print $NF }' | xargs git checkout
         case '*'
             command git $argv
     end
