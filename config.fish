@@ -120,29 +120,36 @@ function cd
     and _orig_cd $p
 end
 
-function fish_right_prompt
-    function _is_git_repo
-        git rev-parse --is-inside-work-tree >/dev/null ^/dev/null
-    end
+function _is_git_repo
+    git rev-parse --is-inside-work-tree >/dev/null ^/dev/null
+end
 
-    function _is_git_dirty
-        not git diff --exit-code --quiet
-        or not git diff --staged --exit-code --quiet
-    end
+function _is_git_dirty
+    set -l stat (git status --porcelain=v2)
+    test -n "$stat"
+end
 
-    function _git_branch_name
-        git symbolic-ref --short HEAD ^/dev/null
-    end
+function _git_branch_name
+    git symbolic-ref --short HEAD ^/dev/null
+end
 
+function _fish_right_prompt_branch_name
     if _is_git_repo
         _is_git_dirty
-            and set color (set_color yellow)
-            or set color (set_color brblue)
+            and set color (set_color bryellow)
+            or set color (set_color 88f)
 
-        set repo_info "$color"(_git_branch_name)
+        echo -n "$color"(_git_branch_name)
     end
+end
 
-    echo -n -s $repo_info ' ' (set_color cyan)(prompt_pwd)
+function _fish_right_prompt_repo_info
+    echo -n ' '(set_color cyan)(prompt_pwd)
+end
+
+function fish_right_prompt
+    _fish_right_prompt_branch_name
+    _fish_right_prompt_repo_info
 end
 
 function gcd
