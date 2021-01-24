@@ -47,6 +47,7 @@ set -x GOPROXY https://proxy.golang.org
 set -x GRADLE_USER_HOME $XDG_DATA_HOME/gradle
 set -x LESSHISTFILE $XDG_DATA_HOME/less/history
 set -x LESSKEY $XDG_DATA_HOME/less/keys
+set -x MAKEFLAGS -j (nproc)
 set -x MKSHELL rc
 set -x MPLAYER_HOME $XDG_CONFIG_HOME/mplayer
 set -x MYPYPATH $XDG_DATA_HOME/mypy
