@@ -330,3 +330,7 @@ end
 function youtube-dl
     command youtube-dl --no-mtime $argv
 end
+
+function diff
+    git diff --no-index $argv
+end
