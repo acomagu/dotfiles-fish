@@ -49,6 +49,7 @@ set -x LESSHISTFILE $XDG_DATA_HOME/less/history
 set -x LESSKEY $XDG_DATA_HOME/less/keys
 set -x MAKEFLAGS -j (nproc)
 set -x MKSHELL rc
+set -x MOZ_USE_XINPUT2 1
 set -x MPLAYER_HOME $XDG_CONFIG_HOME/mplayer
 set -x MYPYPATH $XDG_DATA_HOME/mypy
 set -x NODE_PATH $XDG_DATA_HOME/npm/lib/node_modules
