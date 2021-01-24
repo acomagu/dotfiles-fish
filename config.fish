@@ -326,3 +326,7 @@ function encode-uri
         print uri_escape($in);
     '
 end
+
+function youtube-dl
+    command youtube-dl --no-mtime $argv
+end
