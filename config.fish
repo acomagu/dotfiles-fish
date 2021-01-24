@@ -221,8 +221,16 @@ end
 # Configurations for plugins
 
 # async-prompt
-set -g async_prompt_inherit_variables
 set -g async_prompt_functions fish_right_prompt
+
+function fish_right_prompt_loading_indicator -a last_prompt
+    echo -n "$last_prompt" | sed -r 's/[[:cntrl:]]\[[0-9]{1,3}m//g' | read -zl uncolored_last_prompt
+    echo -n (set_color brblack)"$uncolored_last_prompt"(set_color normal)
+end
+
+function _fish_right_prompt_repo_info_loading_indicator
+    echo (set_color '#aaa')' … '(set_color normal)
+end
 
 function git
     if test -z "$argv"
