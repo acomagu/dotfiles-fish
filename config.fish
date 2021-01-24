@@ -77,16 +77,20 @@ if type -q salias
     salias __init__ | source
 end
 
+function ngrok
+    command ngrok $argv -config $XDG_CONFIG_HOME/ngrok2/ngrok.yml
+end
+
 function _is_git_repo
     git rev-parse --is-inside-work-tree >/dev/null ^/dev/null
 end
 
 function search
     if _is_git_repo
-        git ls-files | xargs grep --color $argv
+        git ls-files --exclude-standard -o -c | xargs ls -d ^/dev/null
     else
-        find . -type f | xargs grep --color $argv
-    end
+        find . -type f
+    end | xargs grep --color $argv
 end
 
 if not functions -q _orig_cd
