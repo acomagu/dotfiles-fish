@@ -55,6 +55,7 @@ set -x MYPYPATH $XDG_DATA_HOME/mypy
 set -x NODE_PATH $XDG_DATA_HOME/npm/lib/node_modules
 set -x NPM_CONFIG_USERCONFIG $XDG_CONFIG_HOME/npm/npmrc
 set -x NVM_PATH $XDG_DATA_HOME/nvm
+set -x QT_LOGGING_RULES '*.debug=false;qt.qpa.*=false'
 set -x RBENV_ROOT $XDG_DATA_HOME/rbenv
 set -x RUSTUP_HOME $XDG_DATA_HOME/rustup
 set -x VST_PATH $VST_PATH:$XDG_DATA_HOME/vst
