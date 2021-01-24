@@ -77,6 +77,11 @@ if type -q salias
     salias __init__ | source
 end
 
+# Disable package suggestion.
+function fish_command_not_found
+    __fish_default_command_not_found_handler $argv
+end
+
 function ngrok
     command ngrok $argv -config $XDG_CONFIG_HOME/ngrok2/ngrok.yml
 end
