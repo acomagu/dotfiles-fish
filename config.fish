@@ -338,3 +338,13 @@ end
 function sshfs
     command sshfs -o reconnect,ServerAliveInterval=15,ServerAliveCountMax=1 $argv
 end
+
+function switch-insomnia-conf
+    set -l confs $XDG_CONFIG_HOME/Insomnia-*
+    string join \n $confs | fzf --height=10 | read -l selection
+    test -z "$selection"
+    and return 1
+
+    rm -rf "$XDG_CONFIG_HOME/Insomnia"
+    cp -r "$selection" "$XDG_CONFIG_HOME/Insomnia"
+end
