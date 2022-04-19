@@ -1,79 +1,3 @@
-function _add_path
-    for path in $argv
-        if test -d $path
-            set -x PATH $path $PATH
-        end
-    end
-end
-
-_add_path /home/linuxbrew/.linuxbrew/bin
-if type -q brew
-    set HOMEBREW_ROOT (brew --prefix)
-    _add_path $HOMEBREW_ROOT/opt/coreutils/libexec/gnubin
-    _add_path $HOMEBREW_ROOT/opt/findutils/libexec/gnubin
-    _add_path $HOMEBREW_ROOT/opt/gnu-sed/libexec/gnubin
-    set -x HOMEBREW_VERBOSE 1
-    set -x LD_LIBRARY_PATH "/usr/lib/x86_64-linux-gnu:/usr/local/lib:$HOMEBREW_ROOT/lib"
-    set -x PKG_CONFIG_PATH "$PKG_CONFIG_PATH:/usr/lib/x86_64-linux-gnu/pkgconfig:/usr/share/pkgconfig:/usr/lib/pkgconfig:$HOMEBREW_ROOT/lib/pkgconfig:$HOMEBREW_ROOT/share/pkgconfig"
-    set -x CFLAGS "$CFLAGS -I$HOMEBREW_ROOT/include"
-    set -x CPATH "$CPATH $HOMEBREW_ROOT/include"
-    set -x LDFLAGS "$LDFLAGS -L$HOMEBREW_ROOT/lib"
-    set -x LIBRARY_PATH "$LIBRARY_PATH $HOMEBREW_ROOT/lib"
-    set -x NVM_DIR (readlink -e $HOMEBREW_ROOT/opt/nvm)
-end
-
-set -x XDG_CACHE_HOME $HOME/.cache
-set -x XDG_CONFIG_HOME $HOME/.config
-set -x XDG_DATA_HOME $HOME/.local/share
-set -x XDG_DESKTOP_DIR $HOME/desktop
-set -x XDG_DOCUMENTS_DIR $HOME/desktop
-set -x XDG_DOWNLOAD_DIR $HOME/desktop
-set -x XDG_MUSIC_DIR $HOME/desktop
-set -x XDG_PICTURES_DIR $HOME/desktop
-set -x XDG_PUBLICSHARE_DIR $HOME/desktop
-set -x XDG_TEMPLATES_DIR $HOME/desktop
-set -x XDG_VIDEOS_DIR $HOME/desktop
-
-set -x ANDROID_HOME $XDG_DATA_HOME/android-sdk
-set -x ANDROID_SDK_HOME $XDG_DATA_HOME/android-sdk
-set -x ANDROID_SDK_ROOT $XDG_DATA_HOME/android-sdk
-set -x AWS_CONFIG_FILE $XDG_CONFIG_HOME/aws/config
-set -x AWS_SHARED_CREDENTIALS_FILE $XDG_CONFIG_HOME/aws/credentials
-set -x CARGO_HOME $XDG_DATA_HOME/cargo
-set -x CDK_HOME $XDG_DATA_HOME/cdk
-set -x GHQ_ROOT $HOME/.local/src
-set -x GNUPGHOME $XDG_DATA_HOME/gnupg
-set -x GOPATH $HOME/.local
-set -x GOPROXY https://proxy.golang.org
-set -x GRADLE_USER_HOME $XDG_DATA_HOME/gradle
-set -x LESSHISTFILE $XDG_DATA_HOME/less/history
-set -x LESSKEY $XDG_DATA_HOME/less/keys
-set -x MAKEFLAGS -j (nproc)
-set -x MKSHELL rc
-set -x MOZ_USE_XINPUT2 1
-set -x MPLAYER_HOME $XDG_CONFIG_HOME/mplayer
-set -x MYPYPATH $XDG_DATA_HOME/mypy
-set -x NODE_PATH $XDG_DATA_HOME/npm/lib/node_modules
-set -x NPM_CONFIG_USERCONFIG $XDG_CONFIG_HOME/npm/npmrc
-set -x NVM_PATH $XDG_DATA_HOME/nvm
-set -x QT_LOGGING_RULES '*.debug=false;qt.qpa.*=false'
-set -x RBENV_ROOT $XDG_DATA_HOME/rbenv
-set -x RUSTUP_HOME $XDG_DATA_HOME/rustup
-set -x STEAM_LIBRARY_PATH $XDG_DATA_HOME/Steam
-set -x VST_PATH $VST_PATH:$XDG_DATA_HOME/vst
-set -x WINEPREFIX $XDG_DATA_HOME/wine
-set -x Z_DATA $XDG_DATA_HOME/z/history
-
-set -l appengine_paths $HOME/.local/opt/google-cloud-sdk /usr/lib/google-cloud-sdk
-
-_add_path $HOME/.local/bin
-_add_path $ANDROID_SDK_HOME/platform-tools
-_add_path $HOME/.local/opt/android-studio/bin
-_add_path $XDG_DATA_HOME/npm/bin
-_add_path $CARGO_HOME/bin
-_add_path $appengine_paths/bin
-_add_path $appengine_paths/platform/google_appengine
-
 bind \cd delete-char
 
 if type -q rbenv
@@ -93,13 +17,9 @@ function ngrok
     command ngrok $argv -config $XDG_CONFIG_HOME/ngrok2/ngrok.yml
 end
 
-function _is_git_repo
-    git rev-parse --is-inside-work-tree >/dev/null ^/dev/null
-end
-
 function search
     if _is_git_repo
-        git ls-files --exclude-standard -o -c | xargs ls -d ^/dev/null
+        git ls-files --exclude-standard -o -c | xargs ls -d 2>/dev/null
     else
         find . -type f
     end | xargs grep --color $argv
@@ -133,7 +53,7 @@ function cd
 end
 
 function _is_git_repo
-    git rev-parse --is-inside-work-tree >/dev/null ^/dev/null
+    git rev-parse --is-inside-work-tree >/dev/null 2>/dev/null
 end
 
 function _is_git_dirty
@@ -142,7 +62,7 @@ function _is_git_dirty
 end
 
 function _git_branch_name
-    git symbolic-ref --short HEAD ^/dev/null
+    git symbolic-ref --short HEAD 2>/dev/null
 end
 
 function _fish_right_prompt_branch_name
@@ -165,7 +85,7 @@ function fish_right_prompt
 end
 
 function gcd
-    ghq list | fzf | read -l p
+    find (ghq root) -maxdepth 4 -type d -name .git -printf '%P\n' | xargs -n1 dirname | fzf | read -l p
     and cd (ghq root)/$p
 end
 
@@ -281,7 +201,7 @@ function yay
 end
 
 function genid
-    echo 'abcdefghijklmnopqrstuvwxyz1234567890' | string split '' | shuf | head -n3 | string join ''
+    python3 -c "import string,random;print(''.join(random.choices(string.ascii_uppercase+string.ascii_lowercase+string.digits,k=3)))"
 end
 
 function hugo
@@ -340,11 +260,7 @@ function encode-uri
         cat
     else
         echo $argv
-    end | perl -MURI::Escape -le '
-        my $in = <STDIN>;
-        chomp($in);
-        print uri_escape($in);
-    '
+    end | python3 -c "import urllib.parse;print(urllib.parse.quote(input()))"
 end
 
 function youtube-dl
