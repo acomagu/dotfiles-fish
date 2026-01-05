@@ -1,5 +1,7 @@
 bind \cd delete-char
 
+set async_prompt_debug_log_enable 0
+
 if type -q rbenv
     rbenv init - | source
 end
@@ -11,18 +13,6 @@ end
 # Disable package suggestion.
 function fish_command_not_found
     __fish_default_command_not_found_handler $argv
-end
-
-function ngrok
-    command ngrok $argv -config $XDG_CONFIG_HOME/ngrok2/ngrok.yml
-end
-
-function search
-    if _is_git_repo
-        git ls-files --exclude-standard -o -c | xargs ls -d 2>/dev/null
-    else
-        find . -type f
-    end | xargs grep --color $argv
 end
 
 if not functions -q _orig_cd
@@ -65,8 +55,26 @@ function _git_branch_name
     git symbolic-ref --short HEAD 2>/dev/null
 end
 
+function _is_jj_repo
+    jj st >/dev/null 2>&1
+end
+
+function _is_jj_dirty
+    test (jj show -T 'empty ++ "\\n"' | head -n1) = false
+end
+
+function _jj_description
+    jj show -T description | head -n1
+end
+
 function _fish_right_prompt_branch_name
-    if _is_git_repo
+    if _is_jj_repo
+        _is_jj_dirty
+            and set color (set_color bryellow)
+            or set color (set_color 88f)
+
+        echo -n "$color"(_jj_description)
+    else if _is_git_repo
         _is_git_dirty
             and set color (set_color bryellow)
             or set color (set_color 88f)
@@ -87,45 +95,6 @@ end
 function gcd
     find (ghq root) -maxdepth 4 -type d -name .git -printf '%P\n' | xargs -n1 dirname | fzf | read -l p
     and cd (ghq root)/$p
-end
-
-function ctf
-    chromix-too ls | fzf | awk '{print $0}' | xargs chromix-too focus
-end
-
-function nvo
-    if test -d $argv
-        read -P'It\'s directory. Sure? ' a
-        and test "$a" = 'y'
-        or return
-    end
-
-    nvc ex e (realpath $argv)
-end
-
-function nvcd
-    realpath $argv |read p
-    nvc ex cd $p
-end
-
-function pd
-    z -l $argv | sed '$d' | awk '{ print $2 }' | fzf -1
-end
-
-function pf
-    find ~ | fzf -q $argv -1
-end
-
-function gbf
-    git branch | awk '{ print $NF }' | fzf
-end
-
-function memo
-    twty -a privmagu $argv >/dev/null
-end
-
-function gdb
-    command gdb -nh -x $XDG_CONFIG_HOME/gdb/init $argv
 end
 
 function fish_prompt
@@ -200,10 +169,6 @@ function yay
     command yay --sudoloop $argv
 end
 
-function genid
-    python3 -c "import string,random;print(''.join(random.choices(string.ascii_uppercase+string.ascii_lowercase+string.digits,k=3)))"
-end
-
 function hugo
     set -l cmd $argv[1]
     switch "$cmd"
@@ -223,44 +188,6 @@ function hugo
     end
 
     command hugo $argv
-end
-
-function goinstall
-    if test $GO111MODULE != on
-        echo 'GO111MODULE is not on' >&2
-        return 1
-    end
-
-    set -l mod
-    if test (count $argv) -ge 1
-        set mod $argv
-    else
-        set mod (pwd | sed -n 's|.*\(github.com/[^/]\+/[^/]\+\).*|\1|p')
-    end
-    if test (count $mod) -ne 1
-        echo "Could not determine the module name: $mod" >&2
-        return 1
-    end
-
-    set -l prodrt "$GHQ_ROOT/$mod"
-    test -e $prodrt/go.mod || echo "module $mod" > $prodrt/go.mod
-    echo "
-        cd $prodrt
-        go install
-    " | fish
-end
-
-function goget
-    ghq get -p --shallow https://$argv
-    goinstall $argv
-end
-
-function encode-uri
-    if test -z "$argv"
-        cat
-    else
-        echo $argv
-    end | python3 -c "import urllib.parse;print(urllib.parse.quote(input()))"
 end
 
 function youtube-dl
@@ -284,3 +211,34 @@ function switch-insomnia-conf
     rm -rf "$XDG_CONFIG_HOME/Insomnia"
     cp -r "$selection" "$XDG_CONFIG_HOME/Insomnia"
 end
+
+# マップする必要あり
+function fzf-docker-continer-name-select
+    commandline -i (
+        env FZF_DEFAULT_COMMAND="docker ps -a --format 'table {{.ID}}\t{{.Names}}\t{{.Image}}\t{{.Command}}\t{{.RunningFor}}\t{{.Ports}}\t{{.Networks}}'" \
+        fzf --no-sort --height 80% --bind='p:toggle-preview' --preview-window=down:70% \
+            --preview '
+                containername=$(echo {} | awk -F " " \'{print $2}\');
+                if [ "$containername" != "ID" ]; then
+                    docker logs --tail 300 $containername
+                fi
+            ' | awk -F " " '{print $2}'
+    )
+end
+
+function fzf-git-log
+  git log -n1000 --oneline --color=always --format="%C(auto)%h%d %s %C(black)%C(bold)%cr" $argv |\
+    fzf -m --ansi --no-sort --reverse --tiebreak=index --preview 'f() {
+      set -- $(echo "$@" | grep -o "[a-f0-9]\{7\}" | head -1);
+      if [ $1 ]; then
+        git show --color $1
+      else
+        echo "blank"
+      fi
+    }; f {}' |\
+    grep -o "[a-f0-9]\{7\}"
+end
+
+mise activate fish | source
+
+atuin init fish | source
